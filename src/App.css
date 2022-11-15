@@ -32,17 +32,46 @@ body {
 }
 
 .middle {
-  border-right: solid 1px gray;
-  border-left: solid 1px gray;
+  border-right: solid 1px rgba(202, 202, 202, 0.719);
+  border-left: solid 1px rgba(202, 202, 202, 0.719);
   width: 32%;
 }
 
-.container-column {
+.container {
   display: flex;
+}
+.column {
   flex-direction: column;
 }
 
-.container-row {
-  display: flex;
+.row {
   flex-direction: row;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.justifyEnd {
+  justify-items: flex-end;
+}
+
+.alignEnd {
+  align-items: flex-end;
+}
+
+.justifyStart {
+  justify-items: flex-start;
+}
+
+.alignStart {
+  align-items: flex-start;
+}
+
+.grayFont {
+  color: rgb(163, 163, 163);
 }
