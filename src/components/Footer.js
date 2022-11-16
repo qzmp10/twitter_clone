@@ -6,7 +6,7 @@ export default function Footer(props) {
                     Don't miss what's happening
                 </div>
                 <div className='span2'>
-                    People on Twitter clone are first to know
+                    People on Chatter are first to know
                 </div>
             </div>
             <div className='authentication'>
