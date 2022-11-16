@@ -16,9 +16,6 @@ body {
   height: 100%;
 }
 
-input[type='text'] {
-  -webkit-appearance: none;
-}
 
 .App {
   display: flex;
@@ -186,26 +183,39 @@ input[type='text'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: .5rem;
+  padding-bottom: .35rem;
 }
 
-.middle-bar>span {
+.middle-bar>label{
   display: flex;
   height: 65%;
   width:  90%;
+  position: relative;
+}
+
+label > div {
+  position: absolute;
+  font-weight: 300;
+  bottom: 19%;
+  left: .8rem;
+  color: gray; 
 
 }
 
 input {
+  overflow: hidden;
   padding-left: 2rem;
   padding-right: 2rem;
   background-color: rgb(224, 224, 224);
   height: 100%;
   width: 100%;
   border: none;
-  border: solid 1px;
-  border-radius: 1.6px;
+  border: solid 1px transparent;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  text-indent: 8px;
 }
+
 
 @media screen and (max-width: 1272px) {
   .left {
