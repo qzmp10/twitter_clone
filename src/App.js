@@ -3,6 +3,7 @@ import './App.css';
 import LeftContainer from './components/LeftContainer';
 import MiddleContainer from './components/MiddleContainer';
 import RightContainer from './components/RightContainer';
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <MiddleContainer/>
       <RightContainer/>
     </div>
+
   );
 }
 
