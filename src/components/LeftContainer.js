@@ -3,21 +3,25 @@ import bird from '../bird.jpg'
 import { FaRegEnvelope, FaUser } from 'react-icons/fa'
 
 export default function LeftContainer(props) {
-    
-    const birdDiv = useRef();
 
-    const hover = (x, y) => {
+    const explore = useRef();
 
+    const hover = () => {
+        explore.current.style.backgroundColor = 'rgba(255, 145, 145, 0.526)'
     }
-
+    const outHover = () => {
+        explore.current.style.backgroundColor='white';
+    }
     return (
         <div className='main container column left alignEnd'>
-            <div ref={birdDiv} className='left-bar container row justifyStart'>
+            <div className='left-bar container row justifyStart'>
                 <img className='bird' src={bird} alt='bird logo' />
             </div>
             <div className='left-bar container row justifyStart alignCenter'>
-                <p>#</p>
-                <span>Explore</span>
+                <span ref={explore} className='left-bar-child' onMouseOver={hover} onMouseOut={outHover}>
+                    <span>#</span>
+                    <span>Explore</span>
+                </span>
             </div>
             {/* <div className='left-bar container row justifyStart alignCenter'>
                 <i><FaRegEnvelope /></i>
