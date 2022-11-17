@@ -11,7 +11,7 @@ function App() {
 
 
   const [signedInStatus, setSignedInStatus] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('explore');
   const [tweetingStatus, setTweetingStatus] = useState(false);
 
   const app = useRef();
