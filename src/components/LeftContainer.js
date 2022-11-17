@@ -15,7 +15,8 @@ export default function LeftContainer(props) {
         explore.current.style.backgroundColor='white';
     }
     return (
-        <div className='main container column left alignEnd'>
+        //main container column left alignEnd
+        <div className='main-container'>
             <div className='left-bar container row justifyStart'>
                 <img className='bird' src={bird} alt='bird logo' />
             </div>
