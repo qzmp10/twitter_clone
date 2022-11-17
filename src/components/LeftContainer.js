@@ -10,6 +10,10 @@ export default function LeftContainer(props) {
     const messages = useRef();
     const profile = useRef();
 
+    const changeTweetStatus = () => {
+        props.tweet(true);
+    }
+
     //do animations for hover
     function hover(ref) {
         ref.style.backgroundColor = 'rgba(255, 145, 145, 0.326)'
@@ -44,7 +48,7 @@ export default function LeftContainer(props) {
                         </span>
                     </div>
                     <div className='left-bar container row justifyStart alignCenter'>
-                        <div className='tweetButton'>Chat</div>
+                        <div className='tweetButton' onClick={changeTweetStatus}>Chat</div>
                     </div>
                 </>
             ) : (

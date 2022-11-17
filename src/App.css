@@ -21,7 +21,6 @@ body {
   display: flex;
   height: 100%;
   position: relative;
-  filter: brightness(0.5);
 }
 
 .icon {
@@ -39,6 +38,16 @@ body {
   gap: 1.2rem;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.main-container-right {
+  background-color: white;
+  height: 100%;
+  flex: 1 1 0 auto;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .main {
@@ -116,7 +125,8 @@ body {
 }
 
 
-i, .i {
+i,
+.i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,19 +210,19 @@ i, .i {
   padding-bottom: .35rem;
 }
 
-.middle-bar>label{
+.middle-bar>label {
   display: flex;
   height: 65%;
-  width:  90%;
+  width: 90%;
   position: relative;
 }
 
-label > div {
+label>div {
   position: absolute;
   font-weight: 300;
   bottom: 18.5%;
   left: .8rem;
-  color: gray; 
+  color: gray;
 
 }
 
@@ -257,12 +267,12 @@ input:focus {
   margin: 1rem;
   border-radius: 1rem;
   margin-top: .8rem;
-  background-color: rgba(202,202,202,0.219);
+  background-color: rgba(202, 202, 202, 0.219);
   margin-left: 1.8rem;
   padding-bottom: -2rem;
 }
 
-.signUp-box > .text {
+.signUp-box>.text {
   padding: .7rem;
   padding-bottom: .05rem;
 }
@@ -358,15 +368,119 @@ input:focus {
 }
 
 .tweet-popUp {
+  position: relative;
   background-color: white;
-  border: solid 1px black;
-  border-radius:  .8rem;
-  width: 614px;
-  height: 300px;
+  border: solid 1px transparent;
+  border-radius: .8rem;
+  width: 600px;
+  height: 314px;
   position: absolute;
   left: 50%;
   top: 9%;
   transform: translate(-50%, -9%);
+  display: flex;
+}
+
+.x {
+  position: absolute;
+  font-size: 1.15rem;
+  top: 1.1rem;
+  left: 1.1rem;
+  color: rgb(53, 53, 53);
+}
+
+.tweet-left-column {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 12%;
+  margin-top: 4.2rem;
+  padding-left: .2rem;
+}
+
+.tweet-right {
+  width: 88%;
+  height: 100%;
+  margin-top: 4.2rem;
+}
+
+.tweetProfile {
+  height: 3rem;
+  width: 3rem;
+  background-color: red;
+  border-radius: 100px;
+}
+
+.everyone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .87rem;
+  color: rgb(255, 19, 19);
+  font-weight: bold;
+  padding-bottom: .1rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  width: 15%;
+  border: solid 1px rgba(128, 128, 128, 0.39);
+  border-radius: 100px;
+}
+
+.reply-options {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  border-bottom: solid 1px rgba(128, 128, 128, 0.219);
+  font-size: .87rem;
+  color: rgb(255, 19, 19);
+  font-weight: bold;
+  width: 95%;
+  padding-bottom: .9rem;
+}
+
+textarea {
+  padding-top: 2rem;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  width: 95%;
+  height: 100px;
+  resize: none;
+  font-size: 1.16rem;
+}
+
+.right-bottom {
+  display: flex;
+  gap: 1.5rem;
+  height: 60px;
+  color: rgb(255, 19, 19)
+}
+
+.bottom-icon {
+  display: flex;
+  align-items: center;
+  font-size: 1.15rem;
+  height: 100%;
+}
+
+.bottom-chat {
+  flex: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1.7rem;
+}
+
+.bottom-chat-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 60%;
+  background-color: rgb(255, 19, 19);
+  color: white;
+  font-weight: bold;
+  border-radius: 100px;
 }
 
 @media screen and (max-width: 1272px) {
@@ -398,7 +512,7 @@ input:focus {
 }
 
 @media screen and (max-width: 1016px) {
-  .main-container{
+  .main-container {
     width: 200px;
     padding-left: 1.6rem;
   }
@@ -450,6 +564,7 @@ input:focus {
     width: 55%;
     margin-left: 1rem;
   }
+
   .authentication {
     width: 45%;
     margin-right: 1.5rem;
@@ -457,11 +572,11 @@ input:focus {
     font-size: .95rem;
   }
 
-  .dontMiss > .span1 {
+  .dontMiss>.span1 {
     font-size: 1.15rem;
   }
 
-  .dontMiss > .span2 {
+  .dontMiss>.span2 {
     font-size: .79rem;
   }
 
@@ -490,7 +605,7 @@ input:focus {
     margin: 0;
   }
 
-  .authentication > span {
+  .authentication>span {
     flex: auto;
     margin-right: .5rem;
     margin-left: .5rem;
@@ -509,7 +624,7 @@ input:focus {
     padding-right: 1.2rem;
     font-size: .9rem;
   }
-  
+
   .signUp {
     background: rgb(255, 19, 19);
     color: white;
@@ -545,7 +660,7 @@ input:focus {
     flex: 1 1 0 auto;
     border-top: solid 1px rgba(202, 202, 202, 0.219);
 
-    
+
   }
 
   .middle-bar {
@@ -565,7 +680,7 @@ input:focus {
     width: 90%;
   }
 
-  label > div {
+  label>div {
     font-size: 1rem;
     left: 2.5rem;
     bottom: 16%;
@@ -587,7 +702,7 @@ input:focus {
     margin-left: 1rem;
   }
 
-  .icon > img {
+  .icon>img {
     width: 2.5rem;
     height: 2.5rem;
   }

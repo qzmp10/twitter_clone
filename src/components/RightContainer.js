@@ -8,7 +8,7 @@ export default function RightContainer(props) {
     return (
         <>
             {props.signedInStatus ? (
-                <div className='main container column right alignStart'>
+                <div className=' main right container column alignStart'>
                     <div className='signUp-box-gray'>
                         <div className='signUp-box-header text'>Who to follow</div>
                         <div className='followSuggestion'>

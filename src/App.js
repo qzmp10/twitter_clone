@@ -12,7 +12,7 @@ function App() {
 
   const [signedInStatus, setSignedInStatus] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
-  const [tweetingStatus, setTweetingStatus] = useState(true);
+  const [tweetingStatus, setTweetingStatus] = useState(false);
 
   const app = useRef();
 
@@ -22,7 +22,12 @@ function App() {
 
   useEffect(() => {
     if(tweetingStatus) {
-      app.current.style.filter = 'blur(10px);'
+      console.log(app.current)
+      app.current.style.filter = 'brightness(0.5)'
+      app.current.style.overflow = 'hidden';
+    } else {
+      app.current.style.overflow = 'default';
+      app.current.style.filter = 'none';
     }
   }, [tweetingStatus])
 
@@ -37,9 +42,9 @@ function App() {
   return (
     <>
       <div className='App' ref={app}>
-        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
+        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}/>
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
-        <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}/>
+        <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
       </div>
 
       {signedInStatus ? (
@@ -49,7 +54,7 @@ function App() {
       )}
 
       {tweetingStatus ? (
-        <Tweet />
+        <Tweet tweet={callbackTweet}/>
       ) : (
         <div></div>
       )}
