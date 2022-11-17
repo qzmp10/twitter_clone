@@ -1,4 +1,8 @@
 export default function Footer(props) {
+
+    const signIn = () => {
+        props.signIn(true);
+    }
     return (
         <div className='footer'>
             <div className='dontMiss'>
@@ -13,7 +17,7 @@ export default function Footer(props) {
                 <span className="logIn">
                     Log In
                 </span>
-                <span className="signUp">
+                <span className="signUp" onClick={signIn}>
                     Sign Up
                 </span>
             </div>
