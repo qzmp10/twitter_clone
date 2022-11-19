@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import bird from '../bird.jpg'
 import { FaRegEnvelope, FaUser, FaHashtag } from 'react-icons/fa'
+import { SlOptions } from 'react-icons/sl'
 
 export default function LeftContainer(props) {
 
@@ -49,6 +50,20 @@ export default function LeftContainer(props) {
                     </div>
                     <div className='left-bar container row justifyStart alignCenter'>
                         <div className='tweetButton' onClick={changeTweetStatus}>Chat</div>
+                    </div>
+                    
+                    <div className='left-bar left-profile'>
+                        <div className='profile-container'>
+                            <div className='left-profile-picture'>
+                            </div>
+                            <div className='left-profile-info'>
+                                <div>Username</div>
+                                <span>@username</span>
+                            </div>
+                            <div className='left-profile-options'>
+                                <SlOptions/>
+                            </div>
+                        </div>
                     </div>
                 </>
             ) : (

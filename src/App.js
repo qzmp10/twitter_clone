@@ -12,6 +12,7 @@ function App() {
 
   const [signedInStatus, setSignedInStatus] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('explore');
+  const [tweetSelectionStatus, setTweetSelectionStatus] = useState(false)
   const [tweetingStatus, setTweetingStatus] = useState(false);
 
   const app = useRef();
@@ -39,11 +40,17 @@ function App() {
     setTweetingStatus(status);
   }
 
+  const callbackSelectTweet = (status) => {
+    setTweetSelectionStatus(status)
+  }
+
+
   return (
     <>
       <div className='App' ref={app}>
         <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}/>
-        <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
+        <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} 
+        currentLocation={currentLocation} focus={callbackSelectTweet} focused={tweetSelectionStatus}/>
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
       </div>
 
