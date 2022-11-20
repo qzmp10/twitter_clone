@@ -423,7 +423,7 @@ input:focus {
   padding-left: .5rem;
   padding-right: .5rem;
   width: 15%;
-  border: solid 1px rgba(128, 128, 128, 0.39);
+  border: solid 1px rgba(202, 202, 202, 0.39);
   border-radius: 100px;
 }
 
@@ -431,7 +431,7 @@ input:focus {
   display: flex;
   align-items: center;
   gap: .3rem;
-  border-bottom: solid 1px rgba(128, 128, 128, 0.219);
+  border-bottom: solid 1px rgba(202, 202, 202, 0.219);
   font-size: .87rem;
   color: rgb(255, 19, 19);
   font-weight: bold;
@@ -492,9 +492,11 @@ textarea {
 }
 
 .explore-tweet-left {
-  padding-left: 1.2rem;
-  padding-right: .7rem;
-  width: 10%;
+  display: flex;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 59.767px;
   height: 100%;
 }
 
@@ -605,6 +607,8 @@ textarea {
 
 .middle-focused-container {
   width:100%;
+  margin-left: .8rem;
+  margin-right: .8rem;
 }
 
 .middle-focused-container > div {
@@ -661,8 +665,8 @@ textarea {
   padding-bottom: 1rem;
   display: flex;
   gap: 1.4rem;
-  border-bottom: solid 1px rgba(128, 128, 128, 0.219);
-  border-top: solid 1px rgba(128, 128, 128, 0.219);
+  border-bottom: solid 1px rgba(202, 202, 202, 0.219);
+  border-top: solid 1px rgba(202, 202, 202, 0.219);
 }
 
 .focused-reactions > div > :first-child {
@@ -681,7 +685,7 @@ textarea {
   justify-content: space-evenly;
   height: 3.5rem;
   gap: 1.4rem;
-  border-bottom: solid 1px rgba(128, 128, 128, 0.219);
+  border-bottom: solid 1px rgba(202, 202, 202, 0.219);
 }
 
 .focused-interactions > span {
@@ -690,6 +694,67 @@ textarea {
   justify-content: center;
   font-size: 1.5rem;
   color: gray;
+}
+
+.left-area-focused-reply {
+  align-items: center;
+  justify-content: center;
+}
+
+.focused-reply {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: solid 1px rgba(202, 202, 202, 0.219);
+}
+
+.replying-to {
+  color: gray;
+}
+.replying-to > span {
+  color: red;
+}
+
+.right-area-focused-reply {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.right-area-focused-reply > textarea {
+  padding-top: 1.3rem;
+  height: 4rem;
+  width: 90%;
+}
+
+.reply-bottom  {
+  color: red;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+
+}
+
+.reply-bottom > div {
+  padding-right: 1rem;
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+.reply-bottom > div > .reply {
+  background-color: rgb(255, 19, 19);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border-radius: 100px;
+
 }
 
 @media screen and (max-width: 1272px) {
@@ -716,6 +781,19 @@ textarea {
     width: 30%;
     gap: 1.5rem;
     margin-right: 3rem;
+  }
+
+  .left-profile-info {
+    font-size: .98rem;
+  }
+
+  .left-profile-info > span {
+    font-size: .98rem;
+  }
+
+
+  .left-profile-options {
+    font-size: .98rem;
   }
 
 }
@@ -765,6 +843,22 @@ textarea {
   .main-container {
     padding-right: 1.6rem;
   }
+
+  .tweet-reactions {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 300;
+    gap: 5rem;
+    padding-bottom: 1rem;
+  }
+
+  .explore-tweet-right>p {
+    width: 90%;
+    margin-top: 0.3rem;
+    font-size: .93rem;
+  }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -787,6 +881,36 @@ textarea {
 
   .dontMiss>.span2 {
     font-size: .79rem;
+  }
+
+  .tweet-reactions {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 300;
+    gap: 4rem;
+    padding-bottom: 1rem;
+  }
+
+  .explore-tweet-right>p {
+    width: 90%;
+    margin-top: 0.3rem;
+    font-size: .92rem;
+  }
+
+  .left-profile-picture {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+  
+  .left-profile-info {
+    display: none;
+  }
+
+  .left-profile-options {
+    justify-content: flex-start;
+    margin-left: 1rem;
+    font-size: .97rem;
   }
 
 }
@@ -914,5 +1038,47 @@ textarea {
   .icon>img {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  .tweet-reactions {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 300;
+    gap: 3rem;
+    padding-bottom: 1rem;
+  }  
+
+  .explore-tweet-right {
+    font-size: .92rem;
+  } 
+  .explore-tweet-right>p {
+    width: 90%;
+    margin-top: 0.3rem;
+    font-size: .92rem;
+  }
+
+  .left-profile-info {
+    display: none;
+  }
+
+  .left-profile-options {
+    margin-left: 1rem;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .left-profile-picture {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+  .left-profile-info {
+    display: none;
+  }
+
+  .left-profile-options {
+    margin-left: 1rem;
+    justify-content: flex-start;
   }
 }

@@ -51,7 +51,7 @@ export default function LeftContainer(props) {
                     <div className='left-bar container row justifyStart alignCenter'>
                         <div className='tweetButton' onClick={changeTweetStatus}>Chat</div>
                     </div>
-                    
+
                     <div className='left-bar left-profile'>
                         <div className='profile-container'>
                             <div className='left-profile-picture'>
@@ -61,7 +61,7 @@ export default function LeftContainer(props) {
                                 <span>@username</span>
                             </div>
                             <div className='left-profile-options'>
-                                <SlOptions/>
+                                <SlOptions />
                             </div>
                         </div>
                     </div>

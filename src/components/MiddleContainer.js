@@ -60,14 +60,20 @@ export default function MiddleContainer(props) {
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             ) : (
                 <div className='main container column middle alignCenter'>
-                    <FocusedTweet />
+                    <FocusedTweet focused={props.focused} focus={props.focus}/>
                 </div>
+
             )}
+            <div className='mobileTweetButton'></div>
+            <div className='mobileBottomBar'>
+                <div className="mobileExplore"></div>
+                <div className="mobileMessages"></div>
+                <div className="mobileProfile"></div>
+            </div>
 
         </>
 

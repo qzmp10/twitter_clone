@@ -1,12 +1,12 @@
-import { AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai";
-import { FaArrowLeft, FaRegComment } from "react-icons/fa";
+import { AiOutlineGif, AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai";
+import { FaArrowLeft, FaRegComment, FaRegImage, FaSmile } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
 
 export default function FocusedTweet(props) {
     return (
         <>
             <div className='go-back-bar'>
-                <span><FaArrowLeft /></span>
+                <span onClick={() => { props.focus(false) }}><FaArrowLeft /></span>
                 <h2>Tweet</h2>
             </div>
             <div className='middle-focused-container'>
@@ -39,18 +39,61 @@ export default function FocusedTweet(props) {
                     </div>
                 </div>
                 <div className="focused-interactions">
-                    <span><FaRegComment/></span>
-                    <span><AiOutlineRetweet/></span>
-                    <span><AiOutlineHeart/></span>
-                    <span><AiOutlineShareAlt/></span>
+                    <span><FaRegComment /></span>
+                    <span><AiOutlineRetweet /></span>
+                    <span><AiOutlineHeart /></span>
+                    <span><AiOutlineShareAlt /></span>
                 </div>
                 <div className='focused-reply'>
                     <div className='left-area-focused-reply'>
                         <div className="focused-profile"></div>
                     </div>
-                    <div className="replying-to"></div>
-                    <div className="reply-area"></div>
-                    <div className="reply-bottom"></div>
+                    <div className="right-area-focused-reply">
+                        <div className="replying-to"> Replying to <span>@username</span></div>
+                        <textarea placeholder="Tweet your reply"></textarea>
+                        <div className="reply-bottom">
+                            <span><FaRegImage /></span>
+                            <span><AiOutlineGif /></span>
+                            <span><FaSmile /></span>
+                            <div>
+                                <div className="reply">Reply</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="explore-tweet" > 
+
+                    <div className="explore-tweet-left">
+                        <div className='explore-tweet-profile'></div>
+                    </div>
+
+                    <div className="explore-tweet-right">
+                        <div className="explore-tweet-info">
+                            <span className='tweet-username'>Username</span>
+                            <span className='tweet-at-and-date'>@username  -  10/10/2010</span>
+                        </div>
+
+                        <p>This is a comment. This is a comment. This is a comment.
+                        </p>
+
+                        <div className="tweet-reactions">
+                            <div className="tweet-comments tweet-reaction">
+                                <span><FaRegComment /></span>
+                                <span>1</span>
+                            </div>
+                            <div className="tweet-retweets tweet-reaction">
+                                <span><AiOutlineRetweet /></span>
+                                <span>2</span>
+                            </div>
+                            <div className="tweet-likes tweet-reaction">
+                                <span><AiOutlineHeart /></span>
+                                <span>3</span>
+                            </div>
+                            <div className="tweet-share tweet-reaction">
+                                <span><AiOutlineShareAlt /></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
