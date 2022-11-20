@@ -6,6 +6,8 @@ import RightContainer from './components/RightContainer';
 import Footer from './components/Footer';
 import { useState, useEffect, useRef } from 'react';
 import Tweet from './components/Tweet';
+import MobileSignedInFooter from './components/MobileSignedInFooter';
+import {FaUser} from 'react-icons/fa'
 
 function App() {
 
@@ -55,7 +57,7 @@ function App() {
       </div>
 
       {signedInStatus ? (
-        <div></div>
+        <MobileSignedInFooter />
       ) : (
         <Footer />
       )}

@@ -13,8 +13,8 @@ export default function FocusedTweet(props) {
                 <div>
                     <div className='focused-profile'></div>
                     <div className='focused-info'>
-                        <span1>Username</span1>
-                        <span2>@username</span2>
+                        <span className='one'>Username</span>
+                        <span className='two'>@username</span>
                     </div>
                     <i><SlOptions /></i>
                 </div>

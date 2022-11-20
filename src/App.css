@@ -24,6 +24,10 @@ body {
   overflow: hidden;
 }
 
+.mobileTweetButton, .mobileBottomBar {
+  display: none;
+}
+
 .icon {
   display: none;
   width: 0;
@@ -71,6 +75,7 @@ body {
   width: 600px;
   border-right: solid 1px rgba(202, 202, 202, 0.219);
   border-left: solid 1px rgba(202, 202, 202, 0.219);
+  overflow-x: hidden;
   overflow: auto;
 }
 
@@ -642,11 +647,11 @@ textarea {
   justify-content: center;
 }
 
-.focused-info > span1 {
+.focused-info > .one {
   font-weight: bold;
 }
 
-.focused-info > span2 {
+.focused-info > .two {
   color: gray;
 }
 
@@ -888,7 +893,7 @@ textarea {
     align-items: center;
     font-size: 1rem;
     font-weight: 300;
-    gap: 4rem;
+    gap: 3.5rem;
     padding-bottom: 1rem;
   }
 
@@ -917,8 +922,28 @@ textarea {
 
 @media screen and (max-width: 558px) {
 
+  .mobileBottomBar {
+    width: 100%;
+    bottom: 0;
+    height: 64px;
+    background-color: rgb(255, 255, 255);
+    color: white;
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: solid 1px rgba(202, 202, 202, 0.219);
+  }
+
+  .mobileBottomBar > div {
+    display: flex;
+    font-size: 1.4rem;
+    color: black;
+  }
+
   .middle {
     border: none;
+    overflow-x: hidden;
   }
 
   .dontMiss {
