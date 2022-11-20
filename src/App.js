@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import { useState, useEffect, useRef } from 'react';
 import Tweet from './components/Tweet';
 import MobileSignedInFooter from './components/MobileSignedInFooter';
-import {FaUser} from 'react-icons/fa'
+import { FaPencilAlt } from 'react-icons/fa'
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
   }, [signedInStatus])
 
   useEffect(() => {
-    if(tweetingStatus) {
+    if (tweetingStatus) {
       console.log(app.current)
       app.current.style.filter = 'brightness(0.5)'
       app.current.style.overflow = 'hidden';
@@ -50,23 +50,36 @@ function App() {
   return (
     <>
       <div className='App' ref={app}>
-        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}/>
-        <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} 
-        currentLocation={currentLocation} focus={callbackSelectTweet} focused={tweetSelectionStatus}/>
+        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet} />
+        <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
+          currentLocation={currentLocation} focus={callbackSelectTweet} focused={tweetSelectionStatus} />
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
       </div>
 
+
       {signedInStatus ? (
-        <MobileSignedInFooter />
+        <>
+        <>
+          {tweetSelectionStatus ? (
+            <div></div>
+          ) : (
+            <div className='mobileTweetButton'><FaPencilAlt /></div>
+          )}
+        </>
+        <MobileSignedInFooter focused={tweetSelectionStatus} />
+        </>
       ) : (
         <Footer />
       )}
 
       {tweetingStatus ? (
-        <Tweet tweet={callbackTweet}/>
+        <Tweet tweet={callbackTweet} />
       ) : (
         <div></div>
       )}
+
+
+
     </>
 
   );
