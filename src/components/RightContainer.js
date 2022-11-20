@@ -1,8 +1,11 @@
+import { useState } from "react";
+import { updateCurrentUser, currentUser, EmailAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase.config";
 
 export default function RightContainer(props) {
-
-    const signIn = () => {
-        props.signIn(true);
+    const signUp = () => {
+        props.signUp(true);
+        // props.signIn(true);
     }
 
     return (
@@ -67,7 +70,7 @@ export default function RightContainer(props) {
                         <div className='signUp-box-header text'>New to Chatter?</div>
                         <div className='smolText text'>Sign up now to get your own personalized timeline!</div>
                         <div className='endBox'>
-                            <div className='signUp-box-button' onClick={signIn}>
+                            <div className='signUp-box-button' onClick={signUp}>
                                 Sign Up
                             </div>
                         </div>

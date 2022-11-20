@@ -1,8 +1,10 @@
 import { FaGlobeAmericas, FaRegImage, FaRegWindowClose, FaSmile } from "react-icons/fa";
 import { AiOutlineGif } from 'react-icons/ai'
+import { useState } from "react";
 
 export default function Tweet(props) {
 
+    const [tweetContent, setTweetContent] = useState()
     const changeTweetStatus = () => {
         props.tweet(false);
     }

@@ -27,7 +27,7 @@ export default function FocusedTweet(props) {
                 <div className="focused-reactions">
                     <div>
                         <span> 100 </span>
-                        <span> Retweets </span>
+                        <span> Re-chats </span>
                     </div>
                     <div>
                         <span> 100 </span>
@@ -50,7 +50,7 @@ export default function FocusedTweet(props) {
                     </div>
                     <div className="right-area-focused-reply">
                         <div className="replying-to"> Replying to <span>@username</span></div>
-                        <textarea placeholder="Tweet your reply"></textarea>
+                        <textarea placeholder="Chat your reply"></textarea>
                         <div className="reply-bottom">
                             <span><FaRegImage /></span>
                             <span><AiOutlineGif /></span>

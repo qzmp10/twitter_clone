@@ -3,28 +3,45 @@ import './App.css';
 import LeftContainer from './components/LeftContainer';
 import MiddleContainer from './components/MiddleContainer';
 import RightContainer from './components/RightContainer';
+import SignUpContainer from './SignUpContainer'
 import Footer from './components/Footer';
 import { useState, useEffect, useRef } from 'react';
 import Tweet from './components/Tweet';
 import MobileSignedInFooter from './components/MobileSignedInFooter';
 import { FaPencilAlt } from 'react-icons/fa'
+import LogiNContainer from './LogInContainer';
+import { auth, db } from './firebase.config'
+import { getDoc, doc } from 'firebase/firestore';
 
 function App() {
 
 
   const [signedInStatus, setSignedInStatus] = useState(false);
+  const [signUpPopUp, setSignUpPopUp] = useState(false);
+  const [logInPopUp, setLogInPopUp] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('explore');
   const [tweetSelectionStatus, setTweetSelectionStatus] = useState(false)
   const [tweetingStatus, setTweetingStatus] = useState(false);
+  const [currentUserInfo, setCurrentUserInfo] = useState('');
+  const [currentUserFollowers, setCurrentUserFollowers] = useState(0);
+  const [currentUserFollowing, setCurrentUserFollowing] = useState(0);
+  const [currentUserTweets, setCurrentUserTweets] = useState([])
 
   const app = useRef();
 
   useEffect(() => {
     console.log(signedInStatus);
+    console.log(auth.currentUser)
+    console.log(currentUserInfo)
+    
   }, [signedInStatus])
 
   useEffect(() => {
-    if (tweetingStatus) {
+    getUserData();
+  }, [currentUserInfo])
+
+  useEffect(() => {
+    if (tweetingStatus || signUpPopUp || logInPopUp) {
       console.log(app.current)
       app.current.style.filter = 'brightness(0.5)'
       app.current.style.overflow = 'hidden';
@@ -32,7 +49,7 @@ function App() {
       app.current.style.overflow = 'default';
       app.current.style.filter = 'none';
     }
-  }, [tweetingStatus])
+  }, [tweetingStatus, signUpPopUp, logInPopUp])
 
   const callbackSignedInStatus = (status) => {
     setSignedInStatus(status);
@@ -46,34 +63,70 @@ function App() {
     setTweetSelectionStatus(status)
   }
 
+  const callbackLocation = (location) => {
+    setCurrentLocation(location);
+  }
+
+  const callbackSignUpPopUp = (status) => {
+    setSignUpPopUp(status);
+  }
+
+  const callbackLogInPopUp = (status) => {
+    setLogInPopUp(status);
+  }
+
+  const callbackCurrentUser = (user) => {
+    setCurrentUserInfo(user)
+  }
+
+  async function getUserData () {
+    const userRef = await doc(db, 'users', `${currentUserInfo}`);
+    const userSnap = await getDoc(userRef);
+    const data = userSnap.data();
+    console.log(data)
+  }
 
   return (
     <>
       <div className='App' ref={app}>
-        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet} />
+        <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}
+          changeLocation={callbackLocation} user={currentUserInfo}/>
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
-          currentLocation={currentLocation} focus={callbackSelectTweet} focused={tweetSelectionStatus} />
-        <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} />
+          currentLocation={currentLocation} focus={callbackSelectTweet}
+          focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}/>
+        <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>
 
 
       {signedInStatus ? (
         <>
-        <>
-          {tweetSelectionStatus ? (
-            <div></div>
-          ) : (
-            <div className='mobileTweetButton'><FaPencilAlt /></div>
-          )}
-        </>
-        <MobileSignedInFooter focused={tweetSelectionStatus} />
+          <>
+            {tweetSelectionStatus ? (
+              <div></div>
+            ) : (
+              <div className='mobileTweetButton'><FaPencilAlt /></div>
+            )}
+          </>
+          <MobileSignedInFooter focused={tweetSelectionStatus} />
         </>
       ) : (
-        <Footer />
+        <Footer logIn={callbackLogInPopUp}/>
       )}
 
       {tweetingStatus ? (
-        <Tweet tweet={callbackTweet} />
+        <Tweet tweet={callbackTweet} user={currentUserInfo} />
+      ) : (
+        <div></div>
+      )}
+
+      {signUpPopUp ? (
+        <SignUpContainer signUp={callbackSignUpPopUp}/>
+      ) : (
+        <div></div>
+      )}
+
+      {logInPopUp ? (
+        <LogiNContainer logIn={callbackLogInPopUp} user={callbackCurrentUser} signIn={callbackSignedInStatus}/>
       ) : (
         <div></div>
       )}

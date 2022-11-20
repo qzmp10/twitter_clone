@@ -29,7 +29,9 @@ export default function LeftContainer(props) {
                 <img className='bird' src={bird} alt='bird logo' />
             </div>
             <div className='left-bar container row justifyStart alignCenter'>
-                <span ref={explore} className='left-bar-child' onMouseOver={() => { hover(explore.current) }} onMouseOut={() => { outHover(explore.current) }}>
+                <span ref={explore} className='left-bar-child' onMouseOver={() => { hover(explore.current) }} 
+                onMouseOut={() => { outHover(explore.current) }}
+                onClick={() => { props.changeLocation('explore') }}>
                     <i className='i'><FaHashtag /> </i>
                     <span>Explore</span>
                 </span>
@@ -37,13 +39,17 @@ export default function LeftContainer(props) {
             {props.signedInStatus ? (
                 <>
                     <div className='left-bar container row justifyStart alignCenter'>
-                        <span ref={messages} className='left-bar-child' onMouseOver={() => { hover(messages.current) }} onMouseOut={() => { outHover(messages.current) }}>
+                        <span ref={messages} className='left-bar-child' onMouseOver={() => { hover(messages.current) }} 
+                        onMouseOut={() => { outHover(messages.current) }}
+                        onClick={() => { props.changeLocation('messages') }}>
                             <i><FaRegEnvelope /></i>
                             <span>Messages</span>
                         </span>
                     </div>
                     <div className='left-bar container row justifyStart alignCenter' >
-                        <span ref={profile} className='left-bar-child' onMouseOver={() => { hover(profile.current) }} onMouseOut={() => { outHover(profile.current) }}>
+                        <span ref={profile} className='left-bar-child' onMouseOver={() => { hover(profile.current) }} 
+                        onMouseOut={() => { outHover(profile.current) }}
+                        onClick={() => { props.changeLocation('profile') }}>
                             <i><FaUser /></i>
                             <span>Profile</span>
                         </span>
@@ -57,8 +63,8 @@ export default function LeftContainer(props) {
                             <div className='left-profile-picture'>
                             </div>
                             <div className='left-profile-info'>
-                                <div>Username</div>
-                                <span>@username</span>
+                                <div>{props.user}</div>
+                                <span>@{props.user}</span>
                             </div>
                             <div className='left-profile-options'>
                                 <SlOptions />

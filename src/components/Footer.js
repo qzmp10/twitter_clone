@@ -14,7 +14,9 @@ export default function Footer(props) {
                 </div>
             </div>
             <div className='authentication'>
-                <span className="logIn">
+                <span className="logIn" onClick = {() => {
+                    props.logIn(true);
+                }}>
                     Log In
                 </span>
                 <span className="signUp" onClick={signIn}>
