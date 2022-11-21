@@ -32,7 +32,6 @@ export default function LogiNContainer(props) {
         } else {
             console.log('error bro')
         }
-
     }
 
 

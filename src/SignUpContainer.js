@@ -27,8 +27,12 @@ export default function SignUpContainer(props) {
         createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(db, `users`, `${username}`), {
             email: email,
-            password: password
+            password: password,
+            tweets: [],
         }) 
+        props.signUp(false);
+        props.signIn(true);
+        props.user(username);
     }
 
 

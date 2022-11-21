@@ -15,7 +15,7 @@ import { getDoc, doc } from 'firebase/firestore';
 
 function App() {
 
-
+  const [stateUpdate, setStateUpdate] = useState(0);
   const [signedInStatus, setSignedInStatus] = useState(false);
   const [signUpPopUp, setSignUpPopUp] = useState(false);
   const [logInPopUp, setLogInPopUp] = useState(false);
@@ -28,17 +28,6 @@ function App() {
   const [currentUserTweets, setCurrentUserTweets] = useState([])
 
   const app = useRef();
-
-  useEffect(() => {
-    console.log(signedInStatus);
-    console.log(auth.currentUser)
-    console.log(currentUserInfo)
-    
-  }, [signedInStatus])
-
-  useEffect(() => {
-    getUserData();
-  }, [currentUserInfo])
 
   useEffect(() => {
     if (tweetingStatus || signUpPopUp || logInPopUp) {
@@ -79,12 +68,12 @@ function App() {
     setCurrentUserInfo(user)
   }
 
-  async function getUserData () {
-    const userRef = await doc(db, 'users', `${currentUserInfo}`);
-    const userSnap = await getDoc(userRef);
-    const data = userSnap.data();
-    console.log(data)
-  }
+  // async function getUserData () {
+  //   const userRef = await doc(db, 'users', `${currentUserInfo}`);
+  //   const userSnap = await getDoc(userRef);
+  //   const data = userSnap.data();
+  //   console.log(data)
+  // };
 
   return (
     <>
@@ -94,7 +83,8 @@ function App() {
 
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
           currentLocation={currentLocation} focus={callbackSelectTweet}
-          focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}/>
+          focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}
+          tweetingStatus={tweetingStatus} update={stateUpdate}/>
 
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>
@@ -122,7 +112,7 @@ function App() {
       )}
 
       {signUpPopUp ? (
-        <SignUpContainer signUp={callbackSignUpPopUp}/>
+        <SignUpContainer signUp={callbackSignUpPopUp} signIn={callbackSignedInStatus} user={callbackCurrentUser}/>
       ) : (
         <div></div>
       )}

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai"
 import { FaArrowLeft } from "react-icons/fa"
 import FocusedTweet from "./FocusedTweet"
-import { useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase.config"
 
@@ -12,9 +12,10 @@ export default function MiddleContainer(props) {
 
     const [currentUserTweets, setCurrentUserTweets] = useState([])
 
+    //triggers when you log in
     useEffect(() => {
         getUserTweets();
-    }, [])
+    }, [props.signedInStatus, props.tweetingStatus])
 
     const focusTweet = () => {
         props.focus(true);
@@ -27,6 +28,11 @@ export default function MiddleContainer(props) {
         const userTweets = userSnap.data()['tweets'];
 
         setCurrentUserTweets(userTweets);
+        console.log('tweets should be rendered')
+    }
+
+    async function getAllTweets() {
+
     }
 
 
@@ -44,7 +50,7 @@ export default function MiddleContainer(props) {
                                 <div>
                                     <FaSearch />
                                 </div>
-                                <input type='text' placeholder="Search Chatter" className="search"/>
+                                <input type='text' placeholder="Search Chatter" className="search" />
                             </label>
                         </div>
                         <div className="middle-focused-container">
@@ -130,43 +136,46 @@ export default function MiddleContainer(props) {
                             <div className="media-bar-active"><div>Chats</div></div>
                             <div><div>Likes</div></div>
                         </div>
-                        {currentUserTweets.map(tweet => {
-                            return (
-                                <div key={Math.random() * 73292}className="explore-tweet" onClick={focusTweet}>
+                        <div className='profile-tweet-container'>
+                            {currentUserTweets.map(tweet => {
+                                return (
+                                    <div key={Math.random() * 73292} className="explore-tweet" onClick={focusTweet}>
 
-                                <div className="explore-tweet-left">
-                                    <div className='explore-tweet-profile'></div>
-                                </div>
+                                        <div className="explore-tweet-left">
+                                            <div className='explore-tweet-profile'></div>
+                                        </div>
 
-                                <div className="explore-tweet-right">
-                                    <div className="explore-tweet-info">
-                                        <span className='tweet-username'>{props.user}</span>
-                                        <span className='tweet-at-and-date'>@{props.user} - {tweet.timestamp.toDate().toDateString()} </span>
+                                        <div className="explore-tweet-right">
+                                            <div className="explore-tweet-info">
+                                                <span className='tweet-username'>{props.user}</span>
+                                                <span className='tweet-at-and-date'>@{props.user} - {tweet.timestamp.toDate().toDateString()} </span>
+                                            </div>
+
+                                            <p>{tweet.text}</p>
+
+                                            <div className="tweet-reactions">
+                                                <div className="tweet-comments tweet-reaction">
+                                                    <span><FaRegComment /></span>
+                                                    <span>1</span>
+                                                </div>
+                                                <div className="tweet-retweets tweet-reaction">
+                                                    <span><AiOutlineRetweet /></span>
+                                                    <span>2</span>
+                                                </div>
+                                                <div className="tweet-likes tweet-reaction">
+                                                    <span><AiOutlineHeart /></span>
+                                                    <span>3</span>
+                                                </div>
+                                                <div className="tweet-share tweet-reaction">
+                                                    <span><AiOutlineShareAlt /></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                )
+                            })}
+                        </div>
 
-                                    <p>{tweet.text}</p>
-
-                                    <div className="tweet-reactions">
-                                        <div className="tweet-comments tweet-reaction">
-                                            <span><FaRegComment /></span>
-                                            <span>1</span>
-                                        </div>
-                                        <div className="tweet-retweets tweet-reaction">
-                                            <span><AiOutlineRetweet /></span>
-                                            <span>2</span>
-                                        </div>
-                                        <div className="tweet-likes tweet-reaction">
-                                            <span><AiOutlineHeart /></span>
-                                            <span>3</span>
-                                        </div>
-                                        <div className="tweet-share tweet-reaction">
-                                            <span><AiOutlineShareAlt /></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            )
-                        })}
                         {/* <div className="explore-tweet" onClick={focusTweet}>
 
                             <div className="explore-tweet-left">
