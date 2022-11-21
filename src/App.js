@@ -91,9 +91,11 @@ function App() {
       <div className='App' ref={app}>
         <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}
           changeLocation={callbackLocation} user={currentUserInfo}/>
+
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
           currentLocation={currentLocation} focus={callbackSelectTweet}
           focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}/>
+
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>
 

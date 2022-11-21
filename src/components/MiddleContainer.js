@@ -4,16 +4,29 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai"
 import { FaArrowLeft } from "react-icons/fa"
 import FocusedTweet from "./FocusedTweet"
-import { useEffect } from "react"
+import { useEffect, useState} from "react"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../firebase.config"
 
 export default function MiddleContainer(props) {
 
+    const [currentUserTweets, setCurrentUserTweets] = useState([])
+
     useEffect(() => {
-        
+        getUserTweets();
     }, [])
 
     const focusTweet = () => {
         props.focus(true);
+    }
+
+    async function getUserTweets() {
+        const userRef = await doc(db, 'users', `${props.user}`);
+        const userSnap = await getDoc(userRef);
+
+        const userTweets = userSnap.data()['tweets'];
+
+        setCurrentUserTweets(userTweets);
     }
 
 
@@ -117,7 +130,44 @@ export default function MiddleContainer(props) {
                             <div className="media-bar-active"><div>Chats</div></div>
                             <div><div>Likes</div></div>
                         </div>
-                        <div className="explore-tweet" onClick={focusTweet}>
+                        {currentUserTweets.map(tweet => {
+                            return (
+                                <div key={Math.random() * 73292}className="explore-tweet" onClick={focusTweet}>
+
+                                <div className="explore-tweet-left">
+                                    <div className='explore-tweet-profile'></div>
+                                </div>
+
+                                <div className="explore-tweet-right">
+                                    <div className="explore-tweet-info">
+                                        <span className='tweet-username'>{props.user}</span>
+                                        <span className='tweet-at-and-date'>@{props.user} - {tweet.timestamp.toDate().toDateString()} </span>
+                                    </div>
+
+                                    <p>{tweet.text}</p>
+
+                                    <div className="tweet-reactions">
+                                        <div className="tweet-comments tweet-reaction">
+                                            <span><FaRegComment /></span>
+                                            <span>1</span>
+                                        </div>
+                                        <div className="tweet-retweets tweet-reaction">
+                                            <span><AiOutlineRetweet /></span>
+                                            <span>2</span>
+                                        </div>
+                                        <div className="tweet-likes tweet-reaction">
+                                            <span><AiOutlineHeart /></span>
+                                            <span>3</span>
+                                        </div>
+                                        <div className="tweet-share tweet-reaction">
+                                            <span><AiOutlineShareAlt /></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })}
+                        {/* <div className="explore-tweet" onClick={focusTweet}>
 
                             <div className="explore-tweet-left">
                                 <div className='explore-tweet-profile'></div>
@@ -152,7 +202,7 @@ export default function MiddleContainer(props) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </>
             ) : (

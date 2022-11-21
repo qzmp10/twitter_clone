@@ -553,7 +553,7 @@ textarea {
   display: flex;
   align-items: center;
   color: gray;
-  word-spacing: 5px;
+  word-spacing: 1px;
 }
 
 .tweet-reactions {
