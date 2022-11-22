@@ -84,7 +84,8 @@ function App() {
     <>
       <div className='App' ref={app}>
         <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}
-          changeLocation={callbackLocation} user={currentUserInfo} focus={callbackSelectTweet}/>
+          changeLocation={callbackLocation} user={currentUserInfo} focus={callbackSelectTweet}
+          focusOtherUserProfile={callbackOtherUserProfile}/>
 
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
           currentLocation={currentLocation} focus={callbackSelectTweet}

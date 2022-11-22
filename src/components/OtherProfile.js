@@ -9,11 +9,12 @@ import { doc, getDoc, getDocs, query, collection } from "firebase/firestore"
 import { db } from "../firebase.config"
 
 export default function OtherProfile(props) {
+
     return (
         <>
             <div className='main container column middle alignCenter'>
                 <div className='go-back-bar'>
-                    <span onClick={() => { props.focusOtherUserProfile(false); props.changeLocation('explore')}}><FaArrowLeft /></span>
+                    <span onClick={() => { props.focusOtherUserProfile(false); props.changeLocation('explore'); props.focusOtherUserProfile(false)}}><FaArrowLeft /></span>
                     <div className='profile-middle-name'>
                         <h2>Explore</h2>
                     </div>
@@ -45,7 +46,6 @@ export default function OtherProfile(props) {
                         return (
                             <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
                                 props.focus(true);
-                                props.previousTweet(props.user, tweet.text, tweet.timestamp)
                             }}>
 
                                 <div className="explore-tweet-left">

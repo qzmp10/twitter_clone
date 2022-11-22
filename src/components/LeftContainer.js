@@ -32,7 +32,7 @@ export default function LeftContainer(props) {
                 </div>
                 <div className='left-bar container row justifyStart alignCenter'>
                     <span ref={explore} className='left-bar-child'
-                        onClick={() => { props.changeLocation('explore'); props.focus(false); }}>
+                        onClick={() => { props.changeLocation('explore'); props.focus(false); props.focusOtherUserProfile(false); }}>
                         <i className='i'><FaHashtag /> </i>
                         <span>Explore</span>
                     </span>
@@ -41,14 +41,14 @@ export default function LeftContainer(props) {
                     <>
                         <div className='left-bar container row justifyStart alignCenter'>
                             <span ref={messages} className='left-bar-child'
-                                onClick={() => { props.changeLocation('messages'); props.focus(false) }}>
+                                onClick={() => { props.changeLocation('messages'); props.focus(false); props.focusOtherUserProfile(false); }}>
                                 <i><FaRegEnvelope /></i>
                                 <span>Messages</span>
                             </span>
                         </div>
                         <div className='left-bar container row justifyStart alignCenter' >
                             <span ref={profile} className='left-bar-child'
-                                onClick={() => { props.changeLocation('profile'); props.focus(false) }}>
+                                onClick={() => { props.changeLocation('profile'); props.focus(false); props.focusOtherUserProfile(false);   }}>
                                 <i><FaUser /></i>
                                 <span>Profile</span>
                             </span>
