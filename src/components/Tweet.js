@@ -25,11 +25,9 @@ export default function Tweet(props) {
     async function updateTweets() {
         const userData  = await doc(db, 'users', `${props.user}`);
 
-
-
         await updateDoc(userData, {
             tweets: arrayUnion({text: tweetContent, 
-            timestamp: Timestamp.now()}),
+            timestamp: Timestamp.now(), comments: []}),
         })
     }
 

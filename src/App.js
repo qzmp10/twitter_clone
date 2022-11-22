@@ -20,7 +20,8 @@ function App() {
   const [signUpPopUp, setSignUpPopUp] = useState(false);
   const [logInPopUp, setLogInPopUp] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('explore');
-  const [tweetSelectionStatus, setTweetSelectionStatus] = useState(false)
+  const [tweetSelectionStatus, setTweetSelectionStatus] = useState(false);
+  const [otherUserProfile, setOtherUserProfile] = useState(false);
   const [tweetingStatus, setTweetingStatus] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState('');
   const [currentUserFollowers, setCurrentUserFollowers] = useState(0);
@@ -68,6 +69,10 @@ function App() {
     setCurrentUserInfo(user)
   }
 
+  const callbackOtherUserProfile = (status) => {
+    setOtherUserProfile(status);
+  }
+
   // async function getUserData () {
   //   const userRef = await doc(db, 'users', `${currentUserInfo}`);
   //   const userSnap = await getDoc(userRef);
@@ -79,12 +84,13 @@ function App() {
     <>
       <div className='App' ref={app}>
         <LeftContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} tweet={callbackTweet}
-          changeLocation={callbackLocation} user={currentUserInfo}/>
+          changeLocation={callbackLocation} user={currentUserInfo} focus={callbackSelectTweet}/>
 
         <MiddleContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus}
           currentLocation={currentLocation} focus={callbackSelectTweet}
           focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}
-          tweetingStatus={tweetingStatus} update={stateUpdate}/>
+          tweetingStatus={tweetingStatus} update={stateUpdate} otherUserProfile={otherUserProfile}
+          focusOtherUserProfile={callbackOtherUserProfile} />
 
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>
@@ -102,7 +108,7 @@ function App() {
           <MobileSignedInFooter focused={tweetSelectionStatus} />
         </>
       ) : (
-        <Footer logIn={callbackLogInPopUp}/>
+        <Footer logIn={callbackLogInPopUp} signUp={callbackSignUpPopUp}/>
       )}
 
       {tweetingStatus ? (

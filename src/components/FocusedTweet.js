@@ -1,8 +1,28 @@
+import { query, doc, where, getDoc, collection } from "firebase/firestore";
+import { useEffect } from "react";
 import { AiOutlineGif, AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai";
 import { FaArrowLeft, FaRegComment, FaRegImage, FaSmile } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
+import { db } from "../firebase.config";
 
 export default function FocusedTweet(props) {
+
+    useEffect(() => {
+        sendComment();
+    }, [props.previouslyClickedUser])
+
+    async function sendComment(message) {
+        const q = query(doc(db, 'users', `${props.previouslyClickedUser}`));
+        const x = await getDoc(q);
+        const userTweets = x.data()['tweets'];
+
+        userTweets.forEach(tweet => {
+            if(tweet.text === props.previouslyClickedTweetContent) {
+                console.log(props.previouslyClickedTweetContent)
+            }
+        })
+
+    }
     return (
         <>
             <div className='go-back-bar'>
@@ -13,16 +33,15 @@ export default function FocusedTweet(props) {
                 <div>
                     <div className='focused-profile'></div>
                     <div className='focused-info'>
-                        <span className='one'>Username</span>
-                        <span className='two'>@username</span>
+                        <span className='one'>{props.previouslyClickedUser}</span>
+                        <span className='two'>@{props.previouslyClickedUser}</span>
                     </div>
                     <i><SlOptions /></i>
                 </div>
-                <p> This is a tweet. This is a tweet. This is a tweet.  This is a tweet.  This is a tweet.
-                    This is a tweet.  This is a tweet.  This is a tweet.  This is a tweet.  This is a tweet.
+                <p> {props.previouslyClickedTweetContent}
                 </p>
                 <div className="focused-date">
-                    6:32 PM - 19/11/2022
+                    {props.previouslyClickedTweetTimestamp}
                 </div>
                 <div className="focused-reactions">
                     <div>
@@ -49,19 +68,25 @@ export default function FocusedTweet(props) {
                         <div className="focused-profile"></div>
                     </div>
                     <div className="right-area-focused-reply">
-                        <div className="replying-to"> Replying to <span>@username</span></div>
+                        <div className="replying-to"> Replying to <span>@{props.previouslyClickedUser}</span></div>
                         <textarea placeholder="Chat your reply"></textarea>
                         <div className="reply-bottom">
                             <span><FaRegImage /></span>
                             <span><AiOutlineGif /></span>
                             <span><FaSmile /></span>
                             <div>
-                                <div className="reply">Reply</div>
+                                <div className="reply"
+                                    onClick={() => {
+                                        console.log(1);
+                                    }
+
+                                    }
+                                >Reply</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="explore-tweet" > 
+                <div className="explore-tweet" >
 
                     <div className="explore-tweet-left">
                         <div className='explore-tweet-profile'></div>

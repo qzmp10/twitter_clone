@@ -1,16 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateCurrentUser, currentUser, EmailAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase.config";
-import { doc, getDoc} from "firebase/firestore";
+import { doc, getDoc, collection, query, getDocs } from "firebase/firestore";
 
 export default function RightContainer(props) {
+
+    const [firstThreeUsers, setFirstThreeUsers] = useState([])
+
+    useEffect(() => {
+        getFirstThreeUsers();
+    }, [])
+
     const signUp = () => {
         props.signUp(true);
-        // props.signIn(true);
     }
 
     async function getFirstThreeUsers() {
-        const ref = await doc(db)
+        let array = []
+        const q = query(collection(db, 'users'));
+
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.forEach((doc) => {
+            if (array.length < 3) {
+                array.push(doc.id);
+            } else {
+                return;
+            }
+        })
+
+        setFirstThreeUsers(array);
     }
 
     return (
@@ -25,10 +44,10 @@ export default function RightContainer(props) {
                             </div>
                             <div className='followName'>
                                 <span className='followUser'>
-                                    User
+                                    {firstThreeUsers[0]}
                                 </span>
                                 <span className="followAt">
-                                    @user1
+                                    @{firstThreeUsers[0]}
                                 </span>
                             </div>
                             <div className='followButton'>
@@ -41,10 +60,10 @@ export default function RightContainer(props) {
                             </div>
                             <div className='followName'>
                                 <span className='followUser'>
-                                    User
+                                    {firstThreeUsers[1]}
                                 </span>
                                 <span className="followAt">
-                                    @user2
+                                    @{firstThreeUsers[1]}
                                 </span>
                             </div>
                             <div className='followButton'>
@@ -57,10 +76,10 @@ export default function RightContainer(props) {
                             </div>
                             <div className='followName'>
                                 <span className='followUser'>
-                                    User
+                                    {firstThreeUsers[2]}
                                 </span>
                                 <span className="followAt">
-                                    @user3
+                                    @{firstThreeUsers[2]}
                                 </span>
                             </div>
                             <div className='followButton'>

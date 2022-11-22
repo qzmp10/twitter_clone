@@ -549,6 +549,11 @@ textarea {
   font-weight: bold;
 }
 
+.tweet-username:hover {
+  text-decoration: underline;
+  transition: text-decoration .3s;
+}
+
 .tweet-at-and-date {
   display: flex;
   align-items: center;
@@ -572,7 +577,8 @@ textarea {
 
 .left-profile {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
   flex: auto;
   padding-bottom: 3rem;
 }
@@ -830,7 +836,6 @@ textarea {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-
 }
 
 .bio-second-half {
@@ -841,6 +846,18 @@ textarea {
 .bio-half > span {
   background-color: white;
   color: black;
+  border: solid 1px rgba(128, 128, 128, 0.219);
+  border-radius: 100px;
+  padding-right: 1.2rem;
+  padding-left: 1.2rem;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  font-weight: bold;
+}
+
+.bio-half > .follow-profile {
+  background-color: black;
+  color: white;
   border: solid 1px rgba(128, 128, 128, 0.219);
   border-radius: 100px;
   padding-right: 1.2rem;
@@ -895,10 +912,12 @@ textarea {
 }
 
 .profile-media-bar > .media-bar-active  >  div{
-  width: 70%;
+  width: 96%;
   border-bottom: solid 5px red;
   border-radius: 5px;
   padding-bottom: .8rem;
+  transition: width .2s;
+  font-size: 1.2rem;
 }
 
 .signUpInput {
@@ -934,6 +953,35 @@ textarea {
   display: none;
 }
 
+.logOut {
+  position: relative;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  padding: 1.2rem;
+  margin-right: 1.2rem;
+  margin-bottom: 1.2rem;
+  border-radius:  9px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.logOut > span:hover {
+  transform: scale(1.1);
+  transition: transform .2s;
+}
+
+
+.logOut:hover {
+  color: white;
+  background-color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  padding: 1.2rem;
+  margin-right: 1.2rem;
+  margin-bottom: 1.2rem;
+  border-radius:  9px;
+  transition: background-color .3s;
+}
 
 
 @media screen and (max-width: 1272px) {
