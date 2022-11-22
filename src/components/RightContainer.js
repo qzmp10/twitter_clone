@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { updateCurrentUser, currentUser, EmailAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.config";
+import { auth, db } from "../firebase.config";
+import { doc, getDoc} from "firebase/firestore";
 
 export default function RightContainer(props) {
     const signUp = () => {
         props.signUp(true);
         // props.signIn(true);
+    }
+
+    async function getFirstThreeUsers() {
+        const ref = await doc(db)
     }
 
     return (
