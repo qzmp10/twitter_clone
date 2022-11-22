@@ -32,7 +32,7 @@ export default function LeftContainer(props) {
                 </div>
                 <div className='left-bar container row justifyStart alignCenter'>
                     <span ref={explore} className='left-bar-child'
-                        onClick={() => { props.changeLocation('explore'); props.focus(false) }}>
+                        onClick={() => { props.changeLocation('explore'); props.focus(false); }}>
                         <i className='i'><FaHashtag /> </i>
                         <span>Explore</span>
                     </span>

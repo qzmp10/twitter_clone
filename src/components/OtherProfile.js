@@ -13,7 +13,7 @@ export default function OtherProfile(props) {
         <>
             <div className='main container column middle alignCenter'>
                 <div className='go-back-bar'>
-                    <span onClick={() => { props.focusOtherUserProfile(false)}}><FaArrowLeft /></span>
+                    <span onClick={() => { props.focusOtherUserProfile(false); props.changeLocation('explore')}}><FaArrowLeft /></span>
                     <div className='profile-middle-name'>
                         <h2>Explore</h2>
                     </div>
@@ -43,7 +43,10 @@ export default function OtherProfile(props) {
                 <div className='profile-tweet-container'>
                     {props.otherUserTweets.map(tweet => {
                         return (
-                            <div key={Math.random() * 73292} className="explore-tweet" onClick={props.focusTweet}>
+                            <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
+                                props.focus(true);
+                                props.previousTweet(props.user, tweet.text, tweet.timestamp)
+                            }}>
 
                                 <div className="explore-tweet-left">
                                     <div className='explore-tweet-profile'></div>

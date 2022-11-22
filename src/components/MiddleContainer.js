@@ -20,6 +20,9 @@ export default function MiddleContainer(props) {
 
     const chatsRef = useRef();
 
+    useEffect(() => {
+        console.log(props.focused, props.otherUserProfile, props.currentLocation)
+    })
 
     useEffect(() => {
         getAllTweets();
@@ -63,6 +66,12 @@ export default function MiddleContainer(props) {
         setGlobalTweetArray(array);
     }
 
+    const callbackPreviousInfo = (user, content, timestamp) => {
+        setPreviouslyClickedUser(user);
+        setPreviouslyClickedTweetContent(content);
+        setPreviouslyClickedTweetTimestamp(timestamp);
+    }
+
     return (
         <>
             {props.currentLocation === 'explore' && !props.focused && !props.otherUserProfile ? (
@@ -99,12 +108,15 @@ export default function MiddleContainer(props) {
                                                     onClick={(e) => {
                                                         //if tweet is from not-current-user go to foreign user profile
                                                         if (tweet.name !== props.user) {
+                                                            props.changeLocation('otherProfile')
                                                             e.stopPropagation()
                                                             setPreviouslyClickedUser(tweet.name);
+                                                            props.focus(false);
                                                             props.focusOtherUserProfile(true);
                                                             getUserTweets(tweet.name);
                                                             //else go to own profile
-                                                        } else {
+                                                        } 
+                                                        else {
                                                             e.stopPropagation();
                                                             props.changeLocation('profile');
                                                             props.focus(false);
@@ -143,12 +155,13 @@ export default function MiddleContainer(props) {
                     </div>
                 </>
 
-            ) : props.currentLocation === 'explore' && props.focused && !props.otherUserProfile ? (
+            ) : (props.currentLocation === 'explore' || props.currentLocation === 'profile') && props.focused && !props.otherUserProfile ? (
                 <>
                     <div className='main container column middle alignCenter'>
                         <FocusedTweet focused={props.focused} focus={props.focus} previouslyClickedUser={previouslyClickedUser}
-                            previouslyClickedTweetContent={previouslyClickedTweetContent} 
-                            previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} user={props.user}/>
+                            previouslyClickedTweetContent={previouslyClickedTweetContent}
+                            previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} user={props.user} 
+                            otherUserProfile={props.otherUserProfile} focusOtherUserProfile={props.focusOtherUserProfile}/>
                     </div>
                 </>
             ) : props.currentLocation === 'profile' && !props.focused && !props.otherUserProfile ? (
@@ -188,7 +201,14 @@ export default function MiddleContainer(props) {
                         <div className='profile-tweet-container'>
                             {currentUserTweets.map(tweet => {
                                 return (
-                                    <div key={Math.random() * 73292} className="explore-tweet" onClick={focusTweet}>
+                                    <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
+                                        props.focus(true);
+                                        setPreviouslyClickedUser(props.user);
+                                        setPreviouslyClickedTweetContent(tweet.text);
+                                        setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
+                                        console.log('clicked')
+
+                                    }}>
 
                                         <div className="explore-tweet-left">
                                             <div className='explore-tweet-profile'></div>
@@ -226,9 +246,10 @@ export default function MiddleContainer(props) {
                         </div>
                     </div>
                 </>
-            ) : props.otherUserProfile && props.currentLocation === 'explore' && !props.focused ? (
+            ) : (props.currentLocation === 'explore' || props.currentLocation === 'otherProfile')  &&  props.otherUserProfile && !props.focused  ? (
                 <OtherProfile otherUserTweets={otherUserTweets} previouslyClickedUser={previouslyClickedUser}
-                    focusTweet={focusTweet} changeLocation={props.changeLocation} focusOtherUserProfile={props.focusOtherUserProfile} />
+                    focusTweet={focusTweet} changeLocation={props.changeLocation} focusOtherUserProfile={props.focusOtherUserProfile}
+                    previousTweet={callbackPreviousInfo} focus={props.focus} user={props.user}/>
             ) : (
                 <div></div>
             )}

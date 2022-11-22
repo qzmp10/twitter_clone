@@ -55,7 +55,6 @@ export default function FocusedTweet(props) {
                 })
             }
         })
-
         setTweetComments(array);
     }
 
@@ -63,7 +62,7 @@ export default function FocusedTweet(props) {
     return (
         <>
             <div className='go-back-bar'>
-                <span onClick={() => { props.focus(false) }}><FaArrowLeft /></span>
+                <span onClick={() => { props.focus(false); props.focusOtherUserProfile(false)}}><FaArrowLeft /></span>
                 <h2>Tweet</h2>
             </div>
             <div className='middle-focused-container'>
@@ -82,15 +81,22 @@ export default function FocusedTweet(props) {
                 </div>
                 <div className="focused-reactions">
                     <div>
-                        <span> 100 </span>
+                        <span> 0 </span>
                         <span> Re-chats </span>
                     </div>
                     <div>
-                        <span> 100 </span>
-                        <span> Comments </span>
+                        <span>{tweetComments.length}</span>
+                        <>
+                            {tweetComments.length > 1 ? (
+                                <span> Comments</span>
+                            ) : (
+                                <span> Comment</span>
+                            )}
+                        </>
+
                     </div>
                     <div>
-                        <span> 100 </span>
+                        <span> 0 </span>
                         <span> Likes</span>
                     </div>
                 </div>
