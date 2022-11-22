@@ -1,5 +1,5 @@
-import { query, doc, where, getDoc, collection } from "firebase/firestore";
-import { useEffect } from "react";
+import { query, doc, where, getDoc, collection, updateDoc, Timestamp } from "firebase/firestore";
+import { useEffect, useState, useRef } from "react";
 import { AiOutlineGif, AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons/ai";
 import { FaArrowLeft, FaRegComment, FaRegImage, FaSmile } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
@@ -7,22 +7,59 @@ import { db } from "../firebase.config";
 
 export default function FocusedTweet(props) {
 
-    useEffect(() => {
-        sendComment();
-    }, [props.previouslyClickedUser])
+    const [commentValue, setCommentValue] = useState('');
+    const [clickedReply, setClickedReply] = useState(1);
+    const [tweetComments, setTweetComments] = useState([]);
 
-    async function sendComment(message) {
+
+    useEffect(() => {
+        getTweetComments()
+    }, [props.focused])
+
+    const inputChange = (e) => {
+        setCommentValue(e.target.value);
+        console.log(commentValue)
+    }
+
+    async function sendComment() {
         const q = query(doc(db, 'users', `${props.previouslyClickedUser}`));
         const x = await getDoc(q);
         const userTweets = x.data()['tweets'];
 
         userTweets.forEach(tweet => {
-            if(tweet.text === props.previouslyClickedTweetContent) {
-                console.log(props.previouslyClickedTweetContent)
+            if (tweet.text === props.previouslyClickedTweetContent) {
+                tweet.comments.push({
+                    text: commentValue,
+                    timestamp: Timestamp.now(),
+                    from: props.user
+                })
+            }
+        })
+        await updateDoc(doc(db, 'users', `${props.previouslyClickedUser}`), {
+            tweets: userTweets
+        })
+
+        getTweetComments();
+    }
+
+    async function getTweetComments() {
+        const q = query(doc(db, 'users', `${props.previouslyClickedUser}`));
+        const x = await getDoc(q);
+        const userTweets = x.data()['tweets'];
+        let array = [];
+
+        userTweets.forEach(tweet => {
+            if (tweet.text === props.previouslyClickedTweetContent) {
+                tweet.comments.forEach(comment => {
+                    array.push(comment);
+                })
             }
         })
 
+        setTweetComments(array);
     }
+
+
     return (
         <>
             <div className='go-back-bar'>
@@ -69,7 +106,7 @@ export default function FocusedTweet(props) {
                     </div>
                     <div className="right-area-focused-reply">
                         <div className="replying-to"> Replying to <span>@{props.previouslyClickedUser}</span></div>
-                        <textarea placeholder="Chat your reply"></textarea>
+                        <textarea placeholder="Chat your reply" onChange={inputChange}></textarea>
                         <div className="reply-bottom">
                             <span><FaRegImage /></span>
                             <span><AiOutlineGif /></span>
@@ -77,49 +114,54 @@ export default function FocusedTweet(props) {
                             <div>
                                 <div className="reply"
                                     onClick={() => {
-                                        console.log(1);
+                                        sendComment();
                                     }
-
                                     }
                                 >Reply</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="explore-tweet" >
+                <>
+                    {tweetComments.map(comment => {
+                        return (
+                            <div key={Math.random() * 8989} className="explore-tweet" >
 
-                    <div className="explore-tweet-left">
-                        <div className='explore-tweet-profile'></div>
-                    </div>
+                                <div className="explore-tweet-left">
+                                    <div className='explore-tweet-profile'></div>
+                                </div>
 
-                    <div className="explore-tweet-right">
-                        <div className="explore-tweet-info">
-                            <span className='tweet-username'>Username</span>
-                            <span className='tweet-at-and-date'>@username  -  10/10/2010</span>
-                        </div>
+                                <div className="explore-tweet-right">
+                                    <div className="explore-tweet-info">
+                                        <span className='tweet-username'>{comment.from}</span>
+                                        <span className='tweet-at-and-date'>@{comment.from}  -  {comment.timestamp.toDate().toDateString()}</span>
+                                    </div>
 
-                        <p>This is a comment. This is a comment. This is a comment.
-                        </p>
+                                    <p>{comment.text}
+                                    </p>
 
-                        <div className="tweet-reactions">
-                            <div className="tweet-comments tweet-reaction">
-                                <span><FaRegComment /></span>
-                                <span>1</span>
+                                    <div className="tweet-reactions">
+                                        <div className="tweet-comments tweet-reaction">
+                                            <span><FaRegComment /></span>
+                                            <span>1</span>
+                                        </div>
+                                        <div className="tweet-retweets tweet-reaction">
+                                            <span><AiOutlineRetweet /></span>
+                                            <span>2</span>
+                                        </div>
+                                        <div className="tweet-likes tweet-reaction">
+                                            <span><AiOutlineHeart /></span>
+                                            <span>3</span>
+                                        </div>
+                                        <div className="tweet-share tweet-reaction">
+                                            <span><AiOutlineShareAlt /></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="tweet-retweets tweet-reaction">
-                                <span><AiOutlineRetweet /></span>
-                                <span>2</span>
-                            </div>
-                            <div className="tweet-likes tweet-reaction">
-                                <span><AiOutlineHeart /></span>
-                                <span>3</span>
-                            </div>
-                            <div className="tweet-share tweet-reaction">
-                                <span><AiOutlineShareAlt /></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        )
+                    })}
+                </>
             </div>
         </>
     )
