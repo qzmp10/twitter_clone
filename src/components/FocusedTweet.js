@@ -11,10 +11,11 @@ export default function FocusedTweet(props) {
     const [clickedReply, setClickedReply] = useState(1);
     const [tweetComments, setTweetComments] = useState([]);
 
-
     useEffect(() => {
         getTweetComments()
     }, [props.focused])
+
+    const focusRef = useRef();
 
     const inputChange = (e) => {
         setCommentValue(e.target.value);
@@ -131,7 +132,15 @@ export default function FocusedTweet(props) {
                 <>
                     {tweetComments.map(comment => {
                         return (
-                            <div key={Math.random() * 8989} className="explore-tweet" >
+                            <div  ref={focusRef} key={Math.random() * 8989} className="explore-tweet-focus" >
+                                {tweetComments.indexOf(comment) === 0 ? (
+                                    <div className='comment-line2'></div>
+                                ) : tweetComments.indexOf(comment) > 0 && tweetComments.indexOf(comment) !== (tweetComments.length - 1) ? (
+                                    <div className="comment-line"></div>
+                                ) : (
+                                    <div className="comment-line3"></div>
+                                )}
+                                
 
                                 <div className="explore-tweet-left">
                                     <div className='explore-tweet-profile'></div>
