@@ -113,7 +113,7 @@ export default function FocusedTweet(props) {
                     </div>
                     <div className="right-area-focused-reply">
                         <div className="replying-to"> Replying to <span>@{props.previouslyClickedUser}</span></div>
-                        <textarea placeholder="Chat your reply" onChange={inputChange}></textarea>
+                        <textarea placeholder="Chat your reply" onChange={inputChange} value={commentValue}></textarea>
                         <div className="reply-bottom">
                             <span><FaRegImage /></span>
                             <span><AiOutlineGif /></span>
@@ -122,6 +122,7 @@ export default function FocusedTweet(props) {
                                 <div className="reply"
                                     onClick={() => {
                                         sendComment();
+                                        setCommentValue('');
                                     }
                                     }
                                 >Reply</div>

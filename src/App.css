@@ -1074,12 +1074,18 @@ textarea {
 }
 
 .profile-media-bar>.media-bar-active>div {
-  width: 96%;
+  width: 70%;
   border-bottom: solid 5px red;
   border-radius: 5px;
   padding-bottom: .8rem;
   transition: width .2s;
-  font-size: 1.2rem;
+  font-size: 1rem;
+}
+
+.profile-media-bar>div:hover {
+  color: gray;
+  transition: color .2s;
+  cursor: pointer;
 }
 
 .signUpInput {
