@@ -133,10 +133,12 @@ export default function FocusedTweet(props) {
                     {tweetComments.map(comment => {
                         return (
                             <div  ref={focusRef} key={Math.random() * 8989} className="explore-tweet-focus" >
-                                {tweetComments.indexOf(comment) === 0 ? (
+                                {tweetComments.indexOf(comment) === 0 && tweetComments.length !== 1 ? (
                                     <div className='comment-line2'></div>
                                 ) : tweetComments.indexOf(comment) > 0 && tweetComments.indexOf(comment) !== (tweetComments.length - 1) ? (
                                     <div className="comment-line"></div>
+                                ) : tweetComments.indexOf(comment) === 0 && tweetComments.length === 1 ? (
+                                    <div className="comment-line4"></div>
                                 ) : (
                                     <div className="comment-line3"></div>
                                 )}

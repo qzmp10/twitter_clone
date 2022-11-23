@@ -22,7 +22,8 @@ body {
   position: relative;
 }
 
-.mobileTweetButton, .mobileBottomBar {
+.mobileTweetButton,
+.mobileBottomBar {
   display: none;
 }
 
@@ -128,6 +129,12 @@ body {
   border-radius: 1.6rem;
 }
 
+.left-bar-child:hover {
+  background-color: rgba(128, 128, 128, 0.082);
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
 
 i,
 .i {
@@ -146,6 +153,7 @@ i,
   color: white;
   position: sticky;
   display: flex;
+  z-index: 10;
 }
 
 .dontMiss {
@@ -186,6 +194,14 @@ i,
   padding-right: 1.2rem;
 }
 
+.logIn:hover {
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
 .signUp {
   background: black;
   color: white;
@@ -194,6 +210,14 @@ i,
   padding-left: 1.2rem;
   padding-right: 1.2rem;
   border: solid 1.5px black;
+}
+
+.signUp:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  border: none;
+  transition: background-color .2s;
 }
 
 .grayFont {
@@ -232,7 +256,7 @@ label>div {
 }
 
 .search {
-  
+
   padding-left: 2rem;
   padding-right: 2rem;
   background-color: rgb(224, 224, 224);
@@ -315,6 +339,14 @@ input:focus {
   background-color: rgb(255, 19, 19);
 }
 
+.signUp-box-button:hover {
+  cursor: pointer;
+  background-color: white;
+  border: solid 1px rgb(255, 19, 19);
+  color: rgb(255, 19, 19);
+  transition: background-color .2s;
+}
+
 .followSuggestion {
   width: 100%;
   height: 25%;
@@ -359,6 +391,14 @@ input:focus {
   margin-right: 1rem;
 }
 
+.followButton:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  transition: background-color .2s;
+}
+
 .tweetButton {
   display: flex;
   align-items: center;
@@ -370,6 +410,14 @@ input:focus {
   border-radius: 100px;
   color: white;
   background-color: rgb(255, 19, 19);
+}
+
+.tweetButton:hover {
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  transition: background-color .2s;
+  cursor: pointer
 }
 
 .tweet-popUp {
@@ -401,7 +449,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   padding: 4rem;
-  gap:2rem;
+  gap: 2rem;
 }
 
 .x {
@@ -410,6 +458,11 @@ input:focus {
   top: 1.1rem;
   left: 1.1rem;
   color: rgb(53, 53, 53);
+}
+
+.x:hover {
+  transform: scale(1.1);
+  transition: transform .2s;
 }
 
 .tweet-left-column {
@@ -461,11 +514,19 @@ input:focus {
   padding-bottom: .9rem;
 }
 
+.reply-bottom> div> .reply:hover {
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
 textarea {
   padding-top: 2rem;
   border: none;
   outline: none;
-  
+
   width: 95%;
   height: 100px;
   resize: none;
@@ -506,14 +567,25 @@ textarea {
   border-radius: 100px;
 }
 
+.bottom-chat-button:hover {
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
 .explore-tweet {
+  cursor: pointer;
   position: relative;
   display: flex;
   padding-top: 1rem;
   border-bottom: solid 1px rgba(128, 128, 128, 0.219);
   width: 100%;
 }
+
 .explore-tweet-focus {
+  cursor: pointer;
   position: relative;
   display: flex;
   padding-top: 1rem;
@@ -555,6 +627,10 @@ textarea {
   background-color: rgba(128, 128, 128, 0.219);
   left: 2.67rem;
   top: 0;
+}
+
+.comment-line4 {
+
 }
 
 .explore-tweet-left {
@@ -620,6 +696,11 @@ textarea {
   gap: .2rem;
 }
 
+.tweet-reaction:hover {
+  transform: scale(1.2);
+  transition: transform .2s;
+}
+
 .left-profile {
   display: flex;
   flex-direction: column;
@@ -652,7 +733,7 @@ textarea {
   gap: .2rem;
 }
 
-.left-profile-info > span {
+.left-profile-info>span {
   font-weight: normal;
   color: gray;
   font-size: 1.1rem;
@@ -666,6 +747,11 @@ textarea {
   flex: auto;
 }
 
+.left-profile-options:hover {
+  color: gray;
+  transition: color .2s;
+}
+
 .go-back-bar {
   display: flex;
   align-items: center;
@@ -677,25 +763,33 @@ textarea {
   gap: 2.5rem;
 }
 
-.middle-focused-container {
-  width:100%;
-  margin-left: .8rem;
-  margin-right: .8rem;
-  border-bottom: solid 1px rgba(128, 128, 128, 0.219)
+.go-back-bar > span:hover {
+  color: gray;
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: color transform .2s;
 }
 
-.middle-focused-container > div {
+.middle-focused-container {
+  width: 100%;
+  margin-left: .8rem;
+  margin-right: .8rem;
+  border-bottom: solid 1px rgba(128, 128, 128, 0.219);
+  z-index: 3;
+}
+
+.middle-focused-container>div {
   display: flex;
 }
 
-.middle-focused-container > div > i {
+.middle-focused-container>div>i {
   display: flex;
   justify-content: flex-end;
   padding: 2rem;
   flex: auto;
 }
 
-.middle-focused-container > p {
+.middle-focused-container>p {
   font-size: 1.3rem;
   padding-left: .8rem;
   margin: 0;
@@ -716,11 +810,11 @@ textarea {
   justify-content: center;
 }
 
-.focused-info > .one {
+.focused-info>.one {
   font-weight: bold;
 }
 
-.focused-info > .two {
+.focused-info>.two {
   color: gray;
 }
 
@@ -743,11 +837,11 @@ textarea {
   border-top: solid 1px rgba(128, 128, 128, 0.219);
 }
 
-.focused-reactions > div > :first-child {
+.focused-reactions>div> :first-child {
   font-weight: bold;
 }
 
-.focused-reactions > div > :nth-child(2) {
+.focused-reactions>div> :nth-child(2) {
   color: gray;
 }
 
@@ -762,12 +856,18 @@ textarea {
   border-bottom: solid 1px rgba(128, 128, 128, 0.219);
 }
 
-.focused-interactions > span {
+.focused-interactions>span {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: gray;
+}
+
+.focused-interactions > span:hover {
+  transform: scale(1.2);
+  color: black;
+  transition: transform .2s;
 }
 
 .left-area-focused-reply {
@@ -784,7 +884,8 @@ textarea {
 .replying-to {
   color: gray;
 }
-.replying-to > span {
+
+.replying-to>span {
   color: red;
 }
 
@@ -794,13 +895,13 @@ textarea {
   flex: auto;
 }
 
-.right-area-focused-reply > textarea {
+.right-area-focused-reply>textarea {
   padding-top: 1.3rem;
   height: 4rem;
   width: 90%;
 }
 
-.reply-bottom  {
+.reply-bottom {
   color: red;
   font-size: 1.1rem;
   display: flex;
@@ -809,7 +910,7 @@ textarea {
 
 }
 
-.reply-bottom > div {
+.reply-bottom>div {
   padding-right: 1rem;
   flex: auto;
   display: flex;
@@ -818,7 +919,7 @@ textarea {
 
 }
 
-.reply-bottom > div > .reply {
+.reply-bottom>div>.reply {
   background-color: rgb(255, 19, 19);
   color: white;
   font-weight: bold;
@@ -835,12 +936,12 @@ textarea {
   flex-direction: column;
 }
 
-.profile-middle-name > h2 {
+.profile-middle-name>h2 {
   margin: 0;
   margin-bottom: 0;
 }
 
-.profile-middle-name > span {
+.profile-middle-name>span {
   color: gray;
 }
 
@@ -889,7 +990,7 @@ textarea {
   width: 100%;
 }
 
-.bio-half > span {
+.bio-half>span {
   background-color: white;
   color: black;
   border: solid 1px rgba(128, 128, 128, 0.219);
@@ -901,7 +1002,14 @@ textarea {
   font-weight: bold;
 }
 
-.bio-half > .follow-profile {
+.bio-half > span:hover {
+  background-color: black;
+  color: white;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+.bio-half>.follow-profile {
   background-color: black;
   color: white;
   border: solid 1px rgba(128, 128, 128, 0.219);
@@ -913,32 +1021,40 @@ textarea {
   font-weight: bold;
 }
 
-.bio-second-half > h2 {
-  padding-top : 1rem;
+.bio-half > .follow-profile:hover {
+  background-color: white;
+  color: black;
+  border: solid 1px rgba(128, 128, 128, 0.219);
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+.bio-second-half>h2 {
+  padding-top: 1rem;
   padding-bottom: .4rem;
   padding-left: .4rem;
   margin-bottom: 0;
   margin-left: 0;
 }
 
-.bio-second-half > span {
+.bio-second-half>span {
   color: gray;
   padding: .4rem;
 
 }
 
-.bio-second-half > div {
+.bio-second-half>div {
   display: flex;
   gap: 1.2rem;
   padding: 0.4rem;
   padding-top: 1.2rem;
 }
 
-.bio-second-half > div > .number {
+.bio-second-half>div>.number {
   font-weight: bold;
 }
 
-.bio-second-half > div > .number > span {
+.bio-second-half>div>.number>span {
   font-weight: normal;
 }
 
@@ -949,7 +1065,7 @@ textarea {
   padding-top: 1.5rem;
 }
 
-.profile-media-bar > div {
+.profile-media-bar>div {
   width: 50%;
   font-weight: bold;
   padding-left: 1.4rem;
@@ -957,7 +1073,7 @@ textarea {
   width: 100%;
 }
 
-.profile-media-bar > .media-bar-active  >  div{
+.profile-media-bar>.media-bar-active>div {
   width: 96%;
   border-bottom: solid 5px red;
   border-radius: 5px;
@@ -991,8 +1107,17 @@ textarea {
   padding-bottom: 1.2rem;
 }
 
+.popUpSignUp:hover {
+  background-color: white;
+  color: rgb(255, 19, 19);
+  border: solid 1px rgb(255, 19, 19);
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
 .profile-tweet-container {
   overflow: auto;
+  width: 600px;
 }
 
 .profile-tweet-container::-webkit-scrollbar {
@@ -1006,13 +1131,13 @@ textarea {
   padding: 1.2rem;
   margin-right: 1.2rem;
   margin-bottom: 1.2rem;
-  border-radius:  9px;
+  border-radius: 9px;
   display: flex;
   justify-content: space-between;
 
 }
 
-.logOut > span:hover {
+.logOut>span:hover {
   transform: scale(1.1);
   transition: transform .2s;
 }
@@ -1025,7 +1150,7 @@ textarea {
   padding: 1.2rem;
   margin-right: 1.2rem;
   margin-bottom: 1.2rem;
-  border-radius:  9px;
+  border-radius: 9px;
   transition: background-color .3s;
 }
 
@@ -1060,7 +1185,7 @@ textarea {
     font-size: .98rem;
   }
 
-  .left-profile-info > span {
+  .left-profile-info>span {
     font-size: .98rem;
   }
 
@@ -1175,7 +1300,7 @@ textarea {
     height: 3.5rem;
     width: 3.5rem;
   }
-  
+
   .left-profile-info {
     display: none;
   }
@@ -1208,7 +1333,7 @@ textarea {
     z-index: 10;
   }
 
-  .mobileBottomBar > div {
+  .mobileBottomBar>div {
     display: flex;
     font-size: 1.4rem;
     color: black;
@@ -1362,11 +1487,12 @@ textarea {
     font-weight: 300;
     gap: 3rem;
     padding-bottom: 1rem;
-  }  
+  }
 
   .explore-tweet-right {
     font-size: .92rem;
-  } 
+  }
+
   .explore-tweet-right>p {
     width: 90%;
     margin-top: 0.3rem;
@@ -1401,6 +1527,7 @@ textarea {
     height: 3.5rem;
     width: 3.5rem;
   }
+
   .left-profile-info {
     display: none;
   }
