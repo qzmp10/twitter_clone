@@ -8,6 +8,7 @@ import { useEffect, useState, useRef } from "react"
 import { doc, getDoc, getDocs, query, collection } from "firebase/firestore"
 import { db } from "../firebase.config"
 import OtherProfile from "./OtherProfile"
+import ProfileReply from "./ProfileReply"
 
 export default function MiddleContainer(props) {
 
@@ -16,17 +17,17 @@ export default function MiddleContainer(props) {
     const [globalTweetArray, setGlobalTweetArray] = useState([]);
     const [previouslyClickedUser, setPreviouslyClickedUser] = useState('');
     const [previouslyClickedTweetContent, setPreviouslyClickedTweetContent] = useState('');
-    const [previouslyClickedTweetTimestamp, setPreviouslyClickedTweetTimestamp] = useState('')
+    const [previouslyClickedTweetTimestamp, setPreviouslyClickedTweetTimestamp] = useState('');
+
+    const [loadChats, setLoadChats] = useState(true);
+    const [loadReplies, setLoadReplies] = useState(false);
 
     const chatsRef = useRef();
     const repliesRef = useRef();
 
     useEffect(() => {
-        console.log(props.focused, props.otherUserProfile, props.currentLocation)
-    })
-
-    useEffect(() => {
         getAllTweets();
+        console.log(chatsRef.current, repliesRef.current)
     }, [])
 
     //triggers when you log in
@@ -103,7 +104,7 @@ export default function MiddleContainer(props) {
                                                     onClick={(e) => {
                                                         //if tweet is from not-current-user go to foreign user profile
                                                         if (tweet.name !== props.user) {
-                                                            e.stopPropagation()
+                                                            e.stopPropagation();
                                                             setPreviouslyClickedUser(tweet.name);
                                                             setPreviouslyClickedTweetContent(tweet.text)
                                                             setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString())
@@ -192,21 +193,28 @@ export default function MiddleContainer(props) {
                         <div className="profile-media-bar">
                             <div className='media-bar-active' ref={chatsRef}
                                 onClick={() => {
-                                    repliesRef.current.classList.remove('media-bar-active')
+                                    repliesRef.current.classList.remove('media-bar-active');
                                     chatsRef.current.classList.add('media-bar-active');
+                                    setLoadChats(true);
+                                    setLoadReplies(false);
                                 }}>
                                 <div>Chats</div>
                             </div>
                             <div ref={repliesRef}
                                 onClick={() => {
-                                    chatsRef.current.classList.remove('media-bar-active')
+                                    chatsRef.current.classList.remove('media-bar-active');
                                     repliesRef.current.classList.add('media-bar-active');
+                                    setLoadReplies(true);
+                                    setLoadChats(false);
                                 }}>
                                 <div>Replies</div>
                             </div>
                         </div>
+
                         <div className='profile-tweet-container'>
-                            {currentUserTweets.map(tweet => {
+                            {loadChats ? (
+                                <>
+                                {currentUserTweets.map(tweet => {
                                 return (
                                     <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
                                         props.focus(true);
@@ -250,6 +258,12 @@ export default function MiddleContainer(props) {
                                     </div>
                                 )
                             })}
+                                </>
+                            ) : loadReplies ? (
+                                <ProfileReply globalTweetArray={globalTweetArray} user={props.user}/>
+                            ) : (
+                                <div></div>
+                            )}
                         </div>
                     </div>
                 </>
