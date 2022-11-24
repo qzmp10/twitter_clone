@@ -8,13 +8,19 @@ import { useEffect, useState, useRef } from "react"
 import { doc, getDoc, getDocs, query, collection } from "firebase/firestore"
 import { db } from "../firebase.config"
 import ProfileReply from "./ProfileReply"
+import ReplyFocused from "./ReplyFocused"
 
 export default function OtherProfile(props) {
 
+    const [focusReply, setFocusReply] = useState(false);
+    const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
+    const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
+    const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
+
     useEffect(() => {
-        console.log('otherUserProfile:',props.otherUserProfile, 'previouslyClickedUser:', props.previouslyClickedUser);
-        
-    }, [])
+        console.log(previouslyClickedComment, previouslyClickedCommentTimestamp)
+
+    }, [previouslyClickedComment])
 
     const [loadChats, setLoadChats] = useState(true);
     const [loadReplies, setLoadReplies] = useState(false);
@@ -22,105 +28,121 @@ export default function OtherProfile(props) {
     const chatsRef = useRef();
     const repliesRef = useRef();
 
+    const callbackFocusReply = (status) => {
+        setFocusReply(status);
+    }
+    const callbackPreviousCommentInfo = (status1, status2, status3) => {
+        setPreviouslyClickedComment(status1);
+        setPreviouslyClickedCommentUser(status2);
+        setPreviouslyClickedCommentTimestamp(status3);
+    }
+    
+
     return (
         <>
-            <div className='main container column middle alignCenter'>
-                <div className='go-back-bar'>
-                    <span onClick={() => { props.focusOtherUserProfile(false); props.changeLocation('explore'); props.focusOtherUserProfile(false) }}><FaArrowLeft /></span>
-                    <div className='profile-middle-name'>
-                        <h2>Explore</h2>
-                    </div>
-                </div>
-                <div className="profile-banner-and-bio">
-                    <div className="banner"></div>
-                    <div className="bio">
-                        <div className='bio-half'>
-                            <span className='follow-profile'>Follow</span>
+            {focusReply ? (
+                <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
+                previouslyClickedCommentUser={previouslyClickedCommentUser}/>
+            ) : (
+                <div className='main container column middle alignCenter'>
+                    <div className='go-back-bar'>
+                        <span onClick={() => { props.focusOtherUserProfile(false); props.changeLocation('explore'); props.focusOtherUserProfile(false) }}><FaArrowLeft /></span>
+                        <div className='profile-middle-name'>
+                            <h2>Explore</h2>
                         </div>
-                        <div className="bio-second-half">
-                            <h2>{props.previouslyClickedUser}</h2>
-                            <span>@{props.previouslyClickedUser}</span>
-                            <div>
-                                <span className='number'>3 <span>following</span></span>
+                    </div>
+                    <div className="profile-banner-and-bio">
+                        <div className="banner"></div>
+                        <div className="bio">
+                            <div className='bio-half'>
+                                <span className='follow-profile'>Follow</span>
+                            </div>
+                            <div className="bio-second-half">
+                                <h2>{props.previouslyClickedUser}</h2>
+                                <span>@{props.previouslyClickedUser}</span>
+                                <div>
+                                    <span className='number'>3 <span>following</span></span>
 
-                                <span className="number">10 <span>followers</span></span>
+                                    <span className="number">10 <span>followers</span></span>
 
+                                </div>
                             </div>
                         </div>
+                        <div className="profile-middle-picture"></div>
                     </div>
-                    <div className="profile-middle-picture"></div>
-                </div>
-                <div className="profile-media-bar">
-                    <div className='media-bar-active' ref={chatsRef}
-                        onClick={() => {
-                            repliesRef.current.classList.remove('media-bar-active');
-                            chatsRef.current.classList.add('media-bar-active');
-                            setLoadChats(true);
-                            setLoadReplies(false);
-                        }}>
-                        <div>Chats</div>
+                    <div className="profile-media-bar">
+                        <div className='media-bar-active' ref={chatsRef}
+                            onClick={() => {
+                                repliesRef.current.classList.remove('media-bar-active');
+                                chatsRef.current.classList.add('media-bar-active');
+                                setLoadChats(true);
+                                setLoadReplies(false);
+                            }}>
+                            <div>Chats</div>
+                        </div>
+                        <div ref={repliesRef}
+                            onClick={() => {
+                                chatsRef.current.classList.remove('media-bar-active');
+                                repliesRef.current.classList.add('media-bar-active');
+                                setLoadReplies(true);
+                                setLoadChats(false);
+                            }}>
+                            <div>Replies</div>
+                        </div>
                     </div>
-                    <div ref={repliesRef}
-                        onClick={() => {
-                            chatsRef.current.classList.remove('media-bar-active');
-                            repliesRef.current.classList.add('media-bar-active');
-                            setLoadReplies(true);
-                            setLoadChats(false);
-                        }}>
-                        <div>Replies</div>
-                    </div>
-                </div>
-                <div className='profile-tweet-container'>
-                    {loadChats ? (
-                        <>
-                            {props.otherUserTweets.map(tweet => {
-                                return (
-                                    <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
-                                        props.focus(true);
-                                    }}>
+                    <div className='profile-tweet-container'>
+                        {loadChats ? (
+                            <>
+                                {props.otherUserTweets.map(tweet => {
+                                    return (
+                                        <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
+                                            props.focus(true);
+                                        }}>
 
-                                        <div className="explore-tweet-left">
-                                            <div className='explore-tweet-profile'></div>
-                                        </div>
-
-                                        <div className="explore-tweet-right">
-                                            <div className="explore-tweet-info">
-                                                <span className='tweet-username'>{props.previouslyClickedUser}</span>
-                                                <span className='tweet-at-and-date'>@{props.previouslyClickedUser} - {tweet.timestamp.toDate().toDateString()} </span>
+                                            <div className="explore-tweet-left">
+                                                <div className='explore-tweet-profile'></div>
                                             </div>
 
-                                            <p>{tweet.text}</p>
+                                            <div className="explore-tweet-right">
+                                                <div className="explore-tweet-info">
+                                                    <span className='tweet-username'>{props.previouslyClickedUser}</span>
+                                                    <span className='tweet-at-and-date'>@{props.previouslyClickedUser} - {tweet.timestamp.toDate().toDateString()} </span>
+                                                </div>
 
-                                            <div className="tweet-reactions">
-                                                <div className="tweet-comments tweet-reaction">
-                                                    <span><FaRegComment /></span>
-                                                    <span>1</span>
-                                                </div>
-                                                <div className="tweet-retweets tweet-reaction">
-                                                    <span><AiOutlineRetweet /></span>
-                                                    <span>2</span>
-                                                </div>
-                                                <div className="tweet-likes tweet-reaction">
-                                                    <span><AiOutlineHeart /></span>
-                                                    <span>3</span>
-                                                </div>
-                                                <div className="tweet-share tweet-reaction">
-                                                    <span><AiOutlineShareAlt /></span>
+                                                <p>{tweet.text}</p>
+
+                                                <div className="tweet-reactions">
+                                                    <div className="tweet-comments tweet-reaction">
+                                                        <span><FaRegComment /></span>
+                                                        <span>1</span>
+                                                    </div>
+                                                    <div className="tweet-retweets tweet-reaction">
+                                                        <span><AiOutlineRetweet /></span>
+                                                        <span>2</span>
+                                                    </div>
+                                                    <div className="tweet-likes tweet-reaction">
+                                                        <span><AiOutlineHeart /></span>
+                                                        <span>3</span>
+                                                    </div>
+                                                    <div className="tweet-share tweet-reaction">
+                                                        <span><AiOutlineShareAlt /></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
                             </>
-                    ) : loadReplies ? (
-                        <ProfileReply globalTweetArray={props.globalTweetArray} otherUser={props.previouslyClickedUser} 
-                        otherUserProfile={props.otherUserProfile}/>
-                    ) : (
-                        <div></div>
-                    )}
+                        ) : loadReplies ? (
+                            <ProfileReply globalTweetArray={props.globalTweetArray} previouslyClickedUser={props.previouslyClickedUser}
+                                otherUserProfile={props.otherUserProfile} replyFocused={callbackFocusReply} commentInfo={callbackPreviousCommentInfo}/>
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
+            
         </>
     )
 }

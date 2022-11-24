@@ -9,7 +9,6 @@ export default function ProfileReply(props) {
     const [replyArray, setReplyArray] = useState([]);
 
     useEffect(() => {
-        console.log(props.otherUserProfile)
         getUserComments();
     }, [])
 
@@ -21,29 +20,36 @@ export default function ProfileReply(props) {
         let array = [];
         props.globalTweetArray.forEach(tweet => {
             tweet.comments.forEach(comment => {
-                if (!props.otherUserProfile) {
+                if (props.otherUserProfile === false) {
                     if (comment.from === `${props.user}`) {
                         console.log(tweet, comment);
                         array.push({ tweet: tweet, comment: comment })
                     }
-                } else if (props.otherUserProfile) {
+                } else if (props.otherUserProfile === true) {
                     if (comment.from === `${props.previouslyClickedUser}`) {
                         console.log(tweet, comment);
                         array.push({ tweet: tweet, comment: comment })
                     }
+                } else {
+                    console.log('flop');
                 }
 
             })
         })
+
         setReplyArray(array);
     }
-
 
     return (
         <>
             {replyArray.map(reply => {
+                console.log(reply.comment.from, reply.comment.text, reply.comment.timestamp)
                 return (
-                    <div key={Math.random() * 47474} className="profileReply">
+                    <div key={Math.random() * 47474} className="profileReply" 
+                    onClick={() => {
+                        props.replyFocused(true);
+                        props.commentInfo(reply.comment.text, reply.comment.from, reply.comment.timestamp);
+                    }}>
                         <div className="reply-line"></div>
                         <div key={Math.random() * 73292} className="explore-tweet-replies">
 

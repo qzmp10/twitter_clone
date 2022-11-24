@@ -611,6 +611,12 @@ textarea {
   width: 100%;
 }
 
+.explore-tweet-replies:hover {
+  background-color: rgba(255, 0, 0, 0.059);
+  transition: background-color .2s;
+}
+
+
 .explore-tweet:hover {
   background-color: rgba(128, 128, 128, 0.119);
   transition: background-color .2s;
