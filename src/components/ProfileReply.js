@@ -43,13 +43,13 @@ export default function ProfileReply(props) {
     return (
         <>
             {replyArray.map(reply => {
-                console.log(reply.comment.from, reply.comment.text, reply.comment.timestamp)
                 return (
-                    <div key={Math.random() * 47474} className="profileReply" 
-                    onClick={() => {
-                        props.replyFocused(true);
-                        props.commentInfo(reply.comment.text, reply.comment.from, reply.comment.timestamp);
-                    }}>
+                    <div key={Math.random() * 47474} className="profileReply"
+                        onClick={() => {
+                            props.replyFocused(true);
+                            props.commentInfo(reply.comment.text, reply.comment.from, reply.comment.timestamp,
+                                reply.tweet.text, reply.tweet.name, reply.tweet.timestamp.toDate().toDateString());
+                        }}>
                         <div className="reply-line"></div>
                         <div key={Math.random() * 73292} className="explore-tweet-replies">
 

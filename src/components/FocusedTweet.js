@@ -82,7 +82,7 @@ export default function FocusedTweet(props) {
 
                     }}
                 ><FaArrowLeft /></span>
-                <h2>Tweet</h2>
+                <h2>Back</h2>
             </div>
 
             {focusReply ? (
