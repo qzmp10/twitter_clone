@@ -24,9 +24,6 @@ function App() {
   const [otherUserProfile, setOtherUserProfile] = useState(false);
   const [tweetingStatus, setTweetingStatus] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState('');
-  const [currentUserFollowers, setCurrentUserFollowers] = useState(0);
-  const [currentUserFollowing, setCurrentUserFollowing] = useState(0);
-  const [currentUserTweets, setCurrentUserTweets] = useState([])
 
   const app = useRef();
 
@@ -73,6 +70,8 @@ function App() {
     setOtherUserProfile(status);
   }
 
+
+
   // async function getUserData () {
   //   const userRef = await doc(db, 'users', `${currentUserInfo}`);
   //   const userSnap = await getDoc(userRef);
@@ -91,7 +90,7 @@ function App() {
           currentLocation={currentLocation} focus={callbackSelectTweet}
           focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}
           tweetingStatus={tweetingStatus} update={stateUpdate} otherUserProfile={otherUserProfile}
-          focusOtherUserProfile={callbackOtherUserProfile} />
+          focusOtherUserProfile={callbackOtherUserProfile}/>
 
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>

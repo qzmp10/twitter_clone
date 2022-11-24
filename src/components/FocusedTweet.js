@@ -10,6 +10,7 @@ export default function FocusedTweet(props) {
     const [commentValue, setCommentValue] = useState('');
     const [clickedReply, setClickedReply] = useState(1);
     const [tweetComments, setTweetComments] = useState([]);
+    const [focusReply, setFocusReply] = useState(false);
 
     useEffect(() => {
         getTweetComments()
