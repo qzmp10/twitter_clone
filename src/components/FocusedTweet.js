@@ -41,7 +41,8 @@ export default function FocusedTweet(props) {
                 tweet.comments.push({
                     text: commentValue,
                     timestamp: Timestamp.now(),
-                    from: props.user
+                    from: props.user,
+                    likes: 0
                 })
             }
         })

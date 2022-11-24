@@ -79,6 +79,17 @@ export default function MiddleContainer(props) {
         setGlobalTweetArray(array);
     }
 
+    async function getTweetLikes(name, text) {
+        const userRef = await doc(db, 'users', `${name}`);
+        const userSnap = await getDoc(userRef);
+        const userTweets = userSnap.data()['tweets'];
+        userTweets.forEach(tweet => {
+            if(tweet.text === text) {
+                console.log(tweet.likes)
+            }
+        })
+    }
+
     const callbackCommentInfo = (status1, status2, status3, status4, status5, status6) => {
         setPreviouslyClickedComment(status1);
         setPreviouslyClickedCommentUser(status2);
@@ -109,10 +120,12 @@ export default function MiddleContainer(props) {
                             {globalTweetArray.map(tweet => {
                                 return (
                                     <div key={Math.random() * 78787} className="explore-tweet" onClick={() => {
+                                        getTweetLikes(tweet.name, tweet.text);
                                         props.focus(true);
                                         setPreviouslyClickedUser(tweet.name);
                                         setPreviouslyClickedTweetContent(tweet.text);
                                         setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
+
                                     }}>
                                         <div className="explore-tweet-left">
                                             <div className='explore-tweet-profile'></div>
