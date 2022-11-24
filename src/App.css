@@ -593,6 +593,16 @@ textarea {
   width: 100%;
 }
 
+
+.explore-tweet-reply {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  padding-top: 1rem;
+  width: 100%;
+  margin-left: -.47rem;
+}
+
 .explore-tweet-replies {
   cursor: pointer;
   position: relative;
@@ -638,8 +648,14 @@ textarea {
   top: 0;
 }
 
-.comment-line4 {
-
+.comment-line5{
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background-color: rgba(128, 128, 128, 0.219);
+  left: 2.67rem;
+  bottom: -1rem;
+  z-index: -1;
 }
 
 .explore-tweet-left {
@@ -787,6 +803,7 @@ textarea {
   z-index: 3;
 }
 
+
 .middle-focused-container>div {
   display: flex;
 }
@@ -844,6 +861,10 @@ textarea {
   gap: 1.4rem;
   border-bottom: solid 1px rgba(128, 128, 128, 0.219);
   border-top: solid 1px rgba(128, 128, 128, 0.219);
+}
+
+.forReply {
+  border-bottom: none;
 }
 
 .focused-reactions>div> :first-child {

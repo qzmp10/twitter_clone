@@ -9,6 +9,7 @@ export default function ProfileReply(props) {
     const [replyArray, setReplyArray] = useState([]);
 
     useEffect(() => {
+        console.log(props.otherUserProfile)
         getUserComments();
     }, [])
 
@@ -20,10 +21,18 @@ export default function ProfileReply(props) {
         let array = [];
         props.globalTweetArray.forEach(tweet => {
             tweet.comments.forEach(comment => {
-                if (comment.from === `${props.user}`) {
-                    console.log(tweet, comment);
-                    array.push({ tweet: tweet, comment: comment })
+                if (!props.otherUserProfile) {
+                    if (comment.from === `${props.user}`) {
+                        console.log(tweet, comment);
+                        array.push({ tweet: tweet, comment: comment })
+                    }
+                } else if (props.otherUserProfile) {
+                    if (comment.from === `${props.previouslyClickedUser}`) {
+                        console.log(tweet, comment);
+                        array.push({ tweet: tweet, comment: comment })
+                    }
                 }
+
             })
         })
         setReplyArray(array);
@@ -34,7 +43,7 @@ export default function ProfileReply(props) {
         <>
             {replyArray.map(reply => {
                 return (
-                    <div key={Math.random() * 47474}className="profileReply">
+                    <div key={Math.random() * 47474} className="profileReply">
                         <div className="reply-line"></div>
                         <div key={Math.random() * 73292} className="explore-tweet-replies">
 

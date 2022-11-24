@@ -223,7 +223,7 @@ export default function MiddleContainer(props) {
                                         setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
                                         console.log('clicked')
 
-                                    }}>
+                                     }}>
 
                                         <div className="explore-tweet-left">
                                             <div className='explore-tweet-profile'></div>
@@ -260,7 +260,7 @@ export default function MiddleContainer(props) {
                             })}
                                 </>
                             ) : loadReplies ? (
-                                <ProfileReply globalTweetArray={globalTweetArray} user={props.user}/>
+                                <ProfileReply globalTweetArray={globalTweetArray} user={props.user} otherUserProfile={props.otherUserProfile}/>
                             ) : (
                                 <div></div>
                             )}
@@ -271,7 +271,8 @@ export default function MiddleContainer(props) {
                 <OtherProfile otherUserTweets={otherUserTweets} previouslyClickedUser={previouslyClickedUser}
                     focusTweet={focusTweet} changeLocation={props.changeLocation} focusOtherUserProfile={props.focusOtherUserProfile}
                     focus={props.focus} user={props.user} previouslyClickedTweetContent={previouslyClickedTweetContent}
-                    previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} />
+                    previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} globalTweetArray={globalTweetArray}
+                    otherUserProfile={props.otherUserProfile}/>
             ) : (
                 <div></div>
             )}
