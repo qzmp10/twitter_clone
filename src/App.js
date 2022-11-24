@@ -24,6 +24,7 @@ function App() {
   const [otherUserProfile, setOtherUserProfile] = useState(false);
   const [tweetingStatus, setTweetingStatus] = useState(false);
   const [currentUserInfo, setCurrentUserInfo] = useState('');
+  const [focusReply, setFocusReply] = useState('');
 
   const app = useRef();
 

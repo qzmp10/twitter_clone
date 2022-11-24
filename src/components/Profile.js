@@ -10,80 +10,45 @@ import { db } from "../firebase.config"
 import ProfileReply from "./ProfileReply"
 import ReplyFocused from "./ReplyFocused"
 
-export default function OtherProfile(props) {
-
+export default function Profile(props) {
     const [focusReply, setFocusReply] = useState(false);
     const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
-    const [ogTweetContent, setOgTweetContent] = useState('')
-    const [ogTweetUser, setOgTweetUser] = useState('')
-    const [ogTweetTimestamp, setOgTweetTimestamp] = useState('')
+    const [ogTweetContent, setOgTweetContent] = useState('');
+    const [ogTweetUser, setOgTweetUser] = useState('');
+    const [ogTweetTimestamp, setOgTweetTimestamp] = useState('');
     const [loadChats, setLoadChats] = useState(true);
     const [loadReplies, setLoadReplies] = useState(false);
 
-
-    useEffect(() => {
-        setLoadReplies(false);
-        setLoadChats(true);
-    }, [])
-
     const chatsRef = useRef();
     const repliesRef = useRef();
-
-
-
-    const callbackFocusReply = (status) => {
-        setFocusReply(status);
-    }
-    const callbackPreviousCommentInfo = (status1, status2, status3, status4, status5, status6) => {
-        setPreviouslyClickedComment(status1);
-        setPreviouslyClickedCommentUser(status2);
-        setPreviouslyClickedCommentTimestamp(status3);
-        setOgTweetContent(status4);
-        setOgTweetUser(status5);
-        setOgTweetTimestamp(status6)
-    }
-
 
     return (
         <>
             <div className='main container column middle alignCenter'>
                 <div className='go-back-bar'>
-                    <span onClick={() => {
-                        if (!focusReply) {
-                            props.focusOtherUserProfile(false);
-                            props.changeLocation('explore');
-                        } else {
-                            setFocusReply(false);
-                        }
-                    }}><FaArrowLeft /></span>
+                    <span onClick={() => { props.changeLocation('explore'); props.focus(false); props.focusOtherUserProfile(false) }}><FaArrowLeft /></span>
                     <div className='profile-middle-name'>
-                        {focusReply ? (
-                            <h2>Back</h2>
-                        ) : (
-                            <h2>Explore</h2>
-                        )}
-
+                        <h2>{props.user}</h2>
+                        <span>1 Tweet</span>
                     </div>
                 </div>
                 {focusReply ? (
-                    <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
-                        previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={ogTweetUser} previouslyClickedTweetContent={ogTweetContent}
-                        previouslyClickedTweetTimestamp={ogTweetTimestamp}
-                    />
+                    <ReplyFocused previouslyClickedTweetContent={ogTweetContent} previouslyClickedUser={ogTweetUser}
+                        previouslyClickedTweetTimestamp={ogTweetTimestamp} previouslyClickedComment={previouslyClickedComment}
+                        previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp} />
                 ) : (
                     <>
-
                         <div className="profile-banner-and-bio">
                             <div className="banner"></div>
                             <div className="bio">
                                 <div className='bio-half'>
-                                    <span className='follow-profile'>Follow</span>
+                                    <span>Edit profile</span>
                                 </div>
                                 <div className="bio-second-half">
-                                    <h2>{props.previouslyClickedUser}</h2>
-                                    <span>@{props.previouslyClickedUser}</span>
+                                    <h2>{props.user}</h2>
+                                    <span>@{props.user}</span>
                                     <div>
                                         <span className='number'>3 <span>following</span></span>
 
@@ -114,13 +79,19 @@ export default function OtherProfile(props) {
                                 <div>Replies</div>
                             </div>
                         </div>
+
                         <div className='profile-tweet-container'>
                             {loadChats ? (
                                 <>
-                                    {props.otherUserTweets.map(tweet => {
+                                    {currentUserTweets.map(tweet => {
                                         return (
                                             <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
                                                 props.focus(true);
+                                                setPreviouslyClickedUser(props.user);
+                                                setPreviouslyClickedTweetContent(tweet.text);
+                                                setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
+                                                console.log('clicked')
+
                                             }}>
 
                                                 <div className="explore-tweet-left">
@@ -129,8 +100,8 @@ export default function OtherProfile(props) {
 
                                                 <div className="explore-tweet-right">
                                                     <div className="explore-tweet-info">
-                                                        <span className='tweet-username'>{props.previouslyClickedUser}</span>
-                                                        <span className='tweet-at-and-date'>@{props.previouslyClickedUser} - {tweet.timestamp.toDate().toDateString()} </span>
+                                                        <span className='tweet-username'>{props.user}</span>
+                                                        <span className='tweet-at-and-date'>@{props.user} - {tweet.timestamp.toDate().toDateString()} </span>
                                                     </div>
 
                                                     <p>{tweet.text}</p>
@@ -158,8 +129,8 @@ export default function OtherProfile(props) {
                                     })}
                                 </>
                             ) : loadReplies ? (
-                                <ProfileReply globalTweetArray={props.globalTweetArray} previouslyClickedUser={props.previouslyClickedUser}
-                                    otherUserProfile={props.otherUserProfile} replyFocused={callbackFocusReply} commentInfo={callbackPreviousCommentInfo} />
+                                <ProfileReply globalTweetArray={globalTweetArray} user={props.user} otherUserProfile={props.otherUserProfile}
+                                    replyFocused={setFocusReply} commentInfo={callbackCommentInfo} />
                             ) : (
                                 <div></div>
                             )}
@@ -170,4 +141,3 @@ export default function OtherProfile(props) {
         </>
     )
 }
-

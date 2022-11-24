@@ -87,8 +87,8 @@ export default function FocusedTweet(props) {
 
             {focusReply ? (
                 <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
-                previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={props.previouslyClickedUser}
-                previouslyClickedTweetContent={props.previouslyClickedTweetContent} previouslyClickedTweetTimestamp={props.previouslyClickedTweetTimestamp}/> 
+                    previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={props.previouslyClickedUser}
+                    previouslyClickedTweetContent={props.previouslyClickedTweetContent} previouslyClickedTweetTimestamp={props.previouslyClickedTweetTimestamp} />
             ) : (
                 <div className='middle-focused-container'>
                     <div>

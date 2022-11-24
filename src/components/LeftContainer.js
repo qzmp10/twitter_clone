@@ -15,16 +15,7 @@ export default function LeftContainer(props) {
         props.tweet(true);
     }
 
-    //do animations for hover
-    // function hover(ref) {
-    //     ref.style.backgroundColor = 'rgba(255, 145, 145, 0.326)'
-    // }
-    // function outHover(ref) {
-    //     ref.style.backgroundColor = 'white';
-    // }
     return (
-
-        //main container column left alignEnd
         <>
             <div className='main-container'>
                 <div className='left-bar container row justifyStart'>

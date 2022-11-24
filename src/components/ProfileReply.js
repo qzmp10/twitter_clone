@@ -30,10 +30,7 @@ export default function ProfileReply(props) {
                         console.log(tweet, comment);
                         array.push({ tweet: tweet, comment: comment })
                     }
-                } else {
-                    console.log('flop');
-                }
-
+                } 
             })
         })
 
@@ -43,6 +40,7 @@ export default function ProfileReply(props) {
     return (
         <>
             {replyArray.map(reply => {
+                console.log(reply.comment)
                 return (
                     <div key={Math.random() * 47474} className="profileReply"
                         onClick={() => {
