@@ -91,7 +91,7 @@ function App() {
           currentLocation={currentLocation} focus={callbackSelectTweet}
           focused={tweetSelectionStatus} changeLocation={callbackLocation} user={currentUserInfo}
           tweetingStatus={tweetingStatus} update={stateUpdate} otherUserProfile={otherUserProfile}
-          focusOtherUserProfile={callbackOtherUserProfile}/>
+          focusOtherUserProfile={callbackOtherUserProfile} setUser={callbackCurrentUser}/>
 
         <RightContainer signedInStatus={signedInStatus} signIn={callbackSignedInStatus} signUp={callbackSignUpPopUp}/>
       </div>

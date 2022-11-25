@@ -16,6 +16,7 @@ export default function MiddleContainer(props) {
     const [currentUserTweets, setCurrentUserTweets] = useState([]);
     const [otherUserTweets, setOtherUserTweets] = useState([]);
     const [globalTweetArray, setGlobalTweetArray] = useState([]);
+    const [globalLikes, setGlobalLikes] = useState([]);
     const [previouslyClickedUser, setPreviouslyClickedUser] = useState('');
     const [previouslyClickedTweetContent, setPreviouslyClickedTweetContent] = useState('');
     const [previouslyClickedTweetTimestamp, setPreviouslyClickedTweetTimestamp] = useState('');
@@ -24,6 +25,7 @@ export default function MiddleContainer(props) {
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
     const [focusReply, setFocusReply] = useState(false);
     const [update, setUpdate] = useState(0);
+    const [updateAgain, setUpdateAgain] = useState(0);
 
 
     const [loadChats, setLoadChats] = useState(true);
@@ -44,9 +46,16 @@ export default function MiddleContainer(props) {
 
     //triggers when you log in
     useEffect(() => {
+        if(!props.signedInStatus) {
+            props.setUser('');
+        }
         getUserTweets(props.user);
         getAllTweets();
     }, [props.signedInStatus, props.tweetingStatus])
+
+    useEffect(() => {
+        getAllTweets();
+    }, [update])
 
 
     const focusTweet = () => {
@@ -90,15 +99,24 @@ export default function MiddleContainer(props) {
         let newTweets = snap.data()['tweets'];
 
         newTweets.forEach(tweet => {
-            if(text === tweet.text) {
-                tweet.likes += 1;
+            if (text === tweet.text) {
+
+                if (tweet.likedby.includes(`${props.user}`)) {
+                    console.log('cant!');
+                } else {
+                    tweet.likes += 1;
+                    tweet.likedby.push(`${props.user}`)
+                }
+
                 console.log(tweet);
             }
         })
-        
+
         await updateDoc(ref, {
             tweets: newTweets,
         })
+
+        setUpdate(update + 1)
     }
 
     const callbackCommentInfo = (status1, status2, status3, status4, status5, status6) => {
@@ -179,11 +197,23 @@ export default function MiddleContainer(props) {
                                                     <span>2</span>
                                                 </div>
                                                 <div className="tweet-likes tweet-reaction">
-                                                    <span onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        incrementLikes(tweet.name, tweet.text);
-                                                        }}><AiOutlineHeart /></span>
-                                                    <span>{tweet.likes}</span>
+                                                    {tweet.likedby.includes(`${props.user}`) ? (
+                                                        <>
+                                                            <span className='liked' onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                incrementLikes(tweet.name, tweet.text);
+                                                            }}><AiOutlineHeart /></span>
+                                                            <span>{tweet.likes}</span></>
+                                                    ) : (
+                                                        <>
+                                                            <span onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                incrementLikes(tweet.name, tweet.text);
+                                                            }}><AiOutlineHeart /></span>
+                                                            <span>{tweet.likes}</span>
+                                                        </>
+                                                    )}
+
                                                 </div>
                                                 <div className="tweet-share tweet-reaction">
                                                     <span><AiOutlineShareAlt /></span>

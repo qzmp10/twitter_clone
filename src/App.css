@@ -881,6 +881,11 @@ textarea {
   color: gray;
 }
 
+.liked {
+  text-shadow: 10px 10px 10px 10px red;
+  color: rgb(255, 19, 19)
+}
+
 .focused-interactions {
   margin-left: .8rem;
   margin-right: .8rem;
