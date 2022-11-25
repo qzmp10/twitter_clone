@@ -9,7 +9,7 @@ import { db } from "../firebase.config";
 export default function ReplyFocused(props) {
 
     useEffect(() => {
-        console.log(props.previouslyClickedCommentLikes, props.previouslyClickedLikes)
+        console.log(props.previousCommentCount, props.previouslyClickedTweetTimestamp)
     }, [])
     
     return (
@@ -33,11 +33,11 @@ export default function ReplyFocused(props) {
                         <div className="tweet-reactions">
                             <div className="tweet-comments tweet-reaction">
                                 <span><FaRegComment /></span>
-                                <span>1</span>
+                                <span>{props.previousCommentCount}</span>
                             </div>
                             <div className="tweet-retweets tweet-reaction">
                                 <span><AiOutlineRetweet /></span>
-                                <span>2</span>
+                                <span>0</span>
                             </div>
                             <div className="tweet-likes tweet-reaction">
                                 <span><AiOutlineHeart /></span>

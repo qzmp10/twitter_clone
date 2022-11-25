@@ -24,6 +24,7 @@ export default function MiddleContainer(props) {
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
     const [previouslyClickedCommentLikes, setPreviouslyClickedCommentLikes] = useState(0);
+    const [previousCommentCount, setPreviousCommentCount] = useState(0);
     const [focusReply, setFocusReply] = useState(false);
     const [update, setUpdate] = useState(0);
 
@@ -39,6 +40,7 @@ export default function MiddleContainer(props) {
     }, [])
 
     useEffect(() => {
+
         setFocusReply(false);
         setLoadReplies(false);
         setLoadChats(true);
@@ -120,19 +122,23 @@ export default function MiddleContainer(props) {
         setUpdate(update + 1)
     }
 
-    const callbackCommentInfo = (status1, status2, status3, status4, status5, status6) => {
+    const callbackCommentInfo = (status1, status2, status3, status4, status5, status6, status7, status8) => {
+
         setPreviouslyClickedComment(status1);
         setPreviouslyClickedCommentUser(status2);
         setPreviouslyClickedCommentTimestamp(status3);
         setPreviouslyClickedTweetContent(status4);
         setPreviouslyClickedUser(status5);
         setPreviouslyClickedTweetTimestamp(status6);
+        setPreviouslyClickedCommentLikes(status7);
+        setPreviouslyClickedLikes(status8);
     }
 
-    const callbackContentAndTimestamp = (status1, status2, status3) => {
+    const callbackContentAndTimestamp = (status1, status2, status3, ) => {
         setPreviouslyClickedTweetContent(status1);
         setPreviouslyClickedTweetTimestamp(status2);
         setPreviouslyClickedLikes(status3);
+        
     } 
 
     const callbackUpdate = () => {
@@ -202,11 +208,11 @@ export default function MiddleContainer(props) {
                                             <div className="tweet-reactions">
                                                 <div className="tweet-comments tweet-reaction">
                                                     <span><FaRegComment /></span>
-                                                    <span>1</span>
+                                                    <span>{tweet.comments.length}</span>
                                                 </div>
                                                 <div className="tweet-retweets tweet-reaction">
                                                     <span><AiOutlineRetweet /></span>
-                                                    <span>2</span>
+                                                    <span>0</span>
                                                 </div>
                                                 <div className="tweet-likes tweet-reaction">
                                                     {tweet.likedby.includes(`${props.user}`) ? (
@@ -272,7 +278,8 @@ export default function MiddleContainer(props) {
                             <ReplyFocused previouslyClickedTweetContent={previouslyClickedTweetContent} previouslyClickedUser={previouslyClickedUser}
                                 previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} previouslyClickedComment={previouslyClickedComment}
                                 previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
-                                previouslyClickedLikes={previouslyClickedLikes} previouslyClickedCommentLikes={previouslyClickedCommentLikes}/>
+                                previouslyClickedLikes={previouslyClickedLikes} previouslyClickedCommentLikes={previouslyClickedCommentLikes} 
+                                previousCommentCount={previousCommentCount}/>
                         ) : (
                             <>
                                 <div className="profile-banner-and-bio">
@@ -344,11 +351,11 @@ export default function MiddleContainer(props) {
                                                             <div className="tweet-reactions">
                                                                 <div className="tweet-comments tweet-reaction">
                                                                     <span><FaRegComment /></span>
-                                                                    <span>1</span>
+                                                                    <span>{tweet.comments.length}</span>
                                                                 </div>
                                                                 <div className="tweet-retweets tweet-reaction">
                                                                     <span><AiOutlineRetweet /></span>
-                                                                    <span>2</span>
+                                                                    <span>0</span>
                                                                 </div>
                                                                 <div className="tweet-likes tweet-reaction">
                                                                     <span><AiOutlineHeart /></span>

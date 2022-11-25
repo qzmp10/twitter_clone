@@ -21,6 +21,7 @@ export default function OtherProfile(props) {
     const [ogTweetTimestamp, setOgTweetTimestamp] = useState('');
     const [previouslyClickedCommentLikes, setPreviouslyClickedCommentLikes] = useState(0);
     const [previouslyClickedLikes, setPreviouslyClickedLikes] = useState(0);
+    const [previousCommentCount, setPreviousCommentCount] = useState(0);
     const [loadChats, setLoadChats] = useState(true);
     const [loadReplies, setLoadReplies] = useState(false);
     const [update, setUpdate] = useState(0);
@@ -82,7 +83,7 @@ export default function OtherProfile(props) {
                     <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
                         previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={ogTweetUser} previouslyClickedTweetContent={ogTweetContent}
                         previouslyClickedTweetTimestamp={ogTweetTimestamp} previouslyClickedCommentLikes={previouslyClickedCommentLikes}
-                        previouslyClickedLikes={previouslyClickedLikes}
+                        previouslyClickedLikes={previouslyClickedLikes} previousCommentCount={previousCommentCount}
                     />
                 ) : (
                     <>
@@ -151,11 +152,11 @@ export default function OtherProfile(props) {
                                                     <div className="tweet-reactions">
                                                         <div className="tweet-comments tweet-reaction">
                                                             <span><FaRegComment /></span>
-                                                            <span>1</span>
+                                                            <span>{tweet.comments.length}</span>
                                                         </div>
                                                         <div className="tweet-retweets tweet-reaction">
                                                             <span><AiOutlineRetweet /></span>
-                                                            <span>2</span>
+                                                            <span>0</span>
                                                         </div>
                                                         <div className="tweet-likes tweet-reaction">
                                                             <span><AiOutlineHeart /></span>

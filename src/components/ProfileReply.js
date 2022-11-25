@@ -45,7 +45,7 @@ export default function ProfileReply(props) {
                         onClick={() => {
                             props.replyFocused(true);
                             props.commentInfo(reply.comment.text, reply.comment.from, reply.comment.timestamp,
-                                reply.tweet.text, reply.tweet.name, reply.tweet.timestamp.toDate().toDateString(),  reply.comment.likes, reply.tweet.likes);
+                                reply.tweet.text, reply.tweet.name, reply.tweet.timestamp.toDate().toDateString(),  reply.comment.likes, reply.tweet.likes,);
                         }}>
                         <div className="reply-line"></div>
                         <div key={Math.random() * 73292} className="explore-tweet-replies">
@@ -65,11 +65,11 @@ export default function ProfileReply(props) {
                                 <div className="tweet-reactions">
                                     <div className="tweet-comments tweet-reaction">
                                         <span><FaRegComment /></span>
-                                        <span>1</span>
+                                        <span>{reply.tweet.comments.length}</span>
                                     </div>
                                     <div className="tweet-retweets tweet-reaction">
                                         <span><AiOutlineRetweet /></span>
-                                        <span>2</span>
+                                        <span>0</span>
                                     </div>
                                     <div className="tweet-likes tweet-reaction">
                                         <span><AiOutlineHeart /></span>
@@ -98,11 +98,11 @@ export default function ProfileReply(props) {
                                 <div className="tweet-reactions">
                                     <div className="tweet-comments tweet-reaction">
                                         <span><FaRegComment /></span>
-                                        <span>1</span>
+                                        <span>0</span>
                                     </div>
                                     <div className="tweet-retweets tweet-reaction">
                                         <span><AiOutlineRetweet /></span>
-                                        <span>2</span>
+                                        <span>0</span>
                                     </div>
                                     <div className="tweet-likes tweet-reaction">
                                         <span><AiOutlineHeart /></span>
