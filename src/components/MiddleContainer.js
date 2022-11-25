@@ -20,12 +20,12 @@ export default function MiddleContainer(props) {
     const [previouslyClickedUser, setPreviouslyClickedUser] = useState('');
     const [previouslyClickedTweetContent, setPreviouslyClickedTweetContent] = useState('');
     const [previouslyClickedTweetTimestamp, setPreviouslyClickedTweetTimestamp] = useState('');
+    const [previouslyClickedLikes, setPreviouslyClickedLikes] = useState(0)
     const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
     const [focusReply, setFocusReply] = useState(false);
     const [update, setUpdate] = useState(0);
-    const [updateAgain, setUpdateAgain] = useState(0);
 
 
     const [loadChats, setLoadChats] = useState(true);
@@ -128,6 +128,10 @@ export default function MiddleContainer(props) {
         setPreviouslyClickedTweetTimestamp(status6);
     }
 
+    const callbackUpdate = () => {
+        setUpdate(update + 1);
+    }
+
     return (
         <>
             {props.currentLocation === 'explore' && !props.focused && !props.otherUserProfile ? (
@@ -153,6 +157,7 @@ export default function MiddleContainer(props) {
                                         setPreviouslyClickedUser(tweet.name);
                                         setPreviouslyClickedTweetContent(tweet.text);
                                         setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
+                                        setPreviouslyClickedLikes(tweet.likes);
 
                                     }}>
                                         <div className="explore-tweet-left">
@@ -234,7 +239,8 @@ export default function MiddleContainer(props) {
                         <FocusedTweet focused={props.focused} focus={props.focus} previouslyClickedUser={previouslyClickedUser}
                             previouslyClickedTweetContent={previouslyClickedTweetContent}
                             previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} user={props.user}
-                            otherUserProfile={props.otherUserProfile} focusOtherUserProfile={props.focusOtherUserProfile} />
+                            otherUserProfile={props.otherUserProfile} focusOtherUserProfile={props.focusOtherUserProfile} 
+                            previouslyClickedLikes={previouslyClickedLikes} incrementLikes={incrementLikes}/>
                     </div>
                 </>
             ) : props.currentLocation === 'profile' && !props.focused && !props.otherUserProfile ? (
@@ -256,7 +262,8 @@ export default function MiddleContainer(props) {
                         {focusReply ? (
                             <ReplyFocused previouslyClickedTweetContent={previouslyClickedTweetContent} previouslyClickedUser={previouslyClickedUser}
                                 previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} previouslyClickedComment={previouslyClickedComment}
-                                previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp} />
+                                previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
+                                previouslyClickedLikes={previouslyClickedLikes} />
                         ) : (
                             <>
                                 <div className="profile-banner-and-bio">
@@ -336,7 +343,7 @@ export default function MiddleContainer(props) {
                                                                 </div>
                                                                 <div className="tweet-likes tweet-reaction">
                                                                     <span><AiOutlineHeart /></span>
-                                                                    <span>3</span>
+                                                                    <span>{tweet.likes}</span>
                                                                 </div>
                                                                 <div className="tweet-share tweet-reaction">
                                                                     <span><AiOutlineShareAlt /></span>
@@ -349,7 +356,8 @@ export default function MiddleContainer(props) {
                                         </>
                                     ) : loadReplies ? (
                                         <ProfileReply globalTweetArray={globalTweetArray} user={props.user} otherUserProfile={props.otherUserProfile}
-                                            replyFocused={setFocusReply} commentInfo={callbackCommentInfo} />
+                                            replyFocused={setFocusReply} commentInfo={callbackCommentInfo} update={callbackUpdate} 
+                                            previouslyClickedLikes={previouslyClickedLikes}/>
                                     ) : (
                                         <div></div>
                                     )}
@@ -363,7 +371,7 @@ export default function MiddleContainer(props) {
                     focusTweet={focusTweet} changeLocation={props.changeLocation} focusOtherUserProfile={props.focusOtherUserProfile}
                     focus={props.focus} user={props.user} previouslyClickedTweetContent={previouslyClickedTweetContent}
                     previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} globalTweetArray={globalTweetArray}
-                    otherUserProfile={props.otherUserProfile} />
+                    otherUserProfile={props.otherUserProfile} update={callbackUpdate}  previouslyClickedLikes={previouslyClickedLikes}/>
             ) : (
                 <div></div>
             )}

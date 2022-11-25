@@ -37,7 +37,7 @@ export default function ReplyFocused(props) {
                             </div>
                             <div className="tweet-likes tweet-reaction">
                                 <span><AiOutlineHeart /></span>
-                                <span>3</span>
+                                <span>{props.previouslyClickedLikes}</span>
                             </div>
                             <div className="tweet-share tweet-reaction">
                                 <span><AiOutlineShareAlt /></span>
@@ -70,7 +70,7 @@ export default function ReplyFocused(props) {
 
                     </div>
                     <div>
-                        <span> 0 </span>
+                        <span> 0</span>
                         <span> Likes</span>
                     </div>
                 </div>

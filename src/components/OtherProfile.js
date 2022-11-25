@@ -146,7 +146,7 @@ export default function OtherProfile(props) {
                                                         </div>
                                                         <div className="tweet-likes tweet-reaction">
                                                             <span><AiOutlineHeart /></span>
-                                                            <span>3</span>
+                                                            <span>{tweet.likes}</span>
                                                         </div>
                                                         <div className="tweet-share tweet-reaction">
                                                             <span><AiOutlineShareAlt /></span>

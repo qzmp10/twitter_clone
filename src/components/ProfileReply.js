@@ -13,7 +13,7 @@ export default function ProfileReply(props) {
     }, [])
 
     useEffect(() => {
-        console.log(replyArray);
+        props.update();
     }, [replyArray])
 
     function getUserComments() {

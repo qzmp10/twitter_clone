@@ -9,7 +9,6 @@ import ReplyFocused from "./ReplyFocused";
 export default function FocusedTweet(props) {
 
     const [commentValue, setCommentValue] = useState('');
-    const [clickedReply, setClickedReply] = useState(1);
     const [tweetComments, setTweetComments] = useState([]);
     const [focusReply, setFocusReply] = useState(false);
     const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
@@ -54,6 +53,29 @@ export default function FocusedTweet(props) {
         getTweetComments();
     }
 
+    async function incrementCommentLikes(commentText, commentFrom) {
+        const q = query(doc(db, 'users', `${props.previouslyClickedUser}`));
+        const x = await getDoc(q);
+        const userTweets = x.data()['tweets'];
+
+        userTweets.forEach(tweet => {
+            if (tweet.text === props.previouslyClickedTweetContent) {
+                tweet.comments.forEach(comment => {
+                    if(comment.from === commentFrom && comment.text === commentText) {
+                        console.log('ooya', comment);
+                        comment.likes += 1;
+                    }
+                })
+            }
+        })
+
+        await updateDoc(doc(db, 'users', `${props.previouslyClickedUser}`), {
+            tweets: userTweets
+        })
+
+        getTweetComments();
+    }
+
     async function getTweetComments() {
         const q = query(doc(db, 'users', `${props.previouslyClickedUser}`));
         const x = await getDoc(q);
@@ -67,6 +89,7 @@ export default function FocusedTweet(props) {
                 })
             }
         })
+
         setTweetComments(array);
     }
 
@@ -90,7 +113,8 @@ export default function FocusedTweet(props) {
             {focusReply ? (
                 <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
                     previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={props.previouslyClickedUser}
-                    previouslyClickedTweetContent={props.previouslyClickedTweetContent} previouslyClickedTweetTimestamp={props.previouslyClickedTweetTimestamp} />
+                    previouslyClickedTweetContent={props.previouslyClickedTweetContent} previouslyClickedTweetTimestamp={props.previouslyClickedTweetTimestamp}
+                    previouslyClickedLikes={props.previouslyClickedLikes} />
             ) : (
                 <div className='middle-focused-container'>
                     <div>
@@ -123,7 +147,7 @@ export default function FocusedTweet(props) {
 
                         </div>
                         <div>
-                            <span> 0 </span>
+                            <span> {props.previouslyClickedLikes} </span>
                             <span> Likes</span>
                         </div>
                     </div>
@@ -200,8 +224,11 @@ export default function FocusedTweet(props) {
                                                 <span>2</span>
                                             </div>
                                             <div className="tweet-likes tweet-reaction">
-                                                <span><AiOutlineHeart /></span>
-                                                <span>3</span>
+                                                <span onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    incrementCommentLikes(comment.text, comment.from)
+                                                }}><AiOutlineHeart /></span>
+                                                <span>{comment.likes}</span>
                                             </div>
                                             <div className="tweet-share tweet-reaction">
                                                 <span><AiOutlineShareAlt /></span>
