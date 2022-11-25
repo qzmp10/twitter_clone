@@ -21,11 +21,13 @@ export default function OtherProfile(props) {
     const [ogTweetTimestamp, setOgTweetTimestamp] = useState('')
     const [loadChats, setLoadChats] = useState(true);
     const [loadReplies, setLoadReplies] = useState(false);
+    const [update, setUpdate] = useState(0);
 
 
     useEffect(() => {
         setLoadReplies(false);
         setLoadChats(true);
+        console.log(props.previouslyClickedTweetContent)
     }, [])
 
     const chatsRef = useRef();
@@ -45,6 +47,9 @@ export default function OtherProfile(props) {
         setOgTweetTimestamp(status6)
     }
 
+    const callbackUpdate = () => {
+        setUpdate(update + 1);
+    }
 
     return (
         <>
@@ -56,6 +61,8 @@ export default function OtherProfile(props) {
                             props.changeLocation('explore');
                         } else {
                             setFocusReply(false);
+                            setLoadChats(true);
+                            setLoadReplies(false);
                         }
                     }}><FaArrowLeft /></span>
                     <div className='profile-middle-name'>
@@ -119,7 +126,8 @@ export default function OtherProfile(props) {
                                 <>
                                     {props.otherUserTweets.map(tweet => {
                                         return (
-                                            <div key={Math.random() * 73292} className="explore-tweet" onClick={() => {
+                                            <div key={Math.random() * 73292} className="explore-tweet" onClick={() =>{
+                                                props.sendInfo(tweet.text, tweet.timestamp.toDate().toString());
                                                 props.focus(true);
                                             }}>
 
@@ -159,7 +167,8 @@ export default function OtherProfile(props) {
                                 </>
                             ) : loadReplies ? (
                                 <ProfileReply globalTweetArray={props.globalTweetArray} previouslyClickedUser={props.previouslyClickedUser}
-                                    otherUserProfile={props.otherUserProfile} replyFocused={callbackFocusReply} commentInfo={callbackPreviousCommentInfo} />
+                                    otherUserProfile={props.otherUserProfile} replyFocused={callbackFocusReply} commentInfo={callbackPreviousCommentInfo} 
+                                    update={callbackUpdate}/>
                             ) : (
                                 <div></div>
                             )}

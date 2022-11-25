@@ -16,7 +16,6 @@ export default function MiddleContainer(props) {
     const [currentUserTweets, setCurrentUserTweets] = useState([]);
     const [otherUserTweets, setOtherUserTweets] = useState([]);
     const [globalTweetArray, setGlobalTweetArray] = useState([]);
-    const [globalLikes, setGlobalLikes] = useState([]);
     const [previouslyClickedUser, setPreviouslyClickedUser] = useState('');
     const [previouslyClickedTweetContent, setPreviouslyClickedTweetContent] = useState('');
     const [previouslyClickedTweetTimestamp, setPreviouslyClickedTweetTimestamp] = useState('');
@@ -57,10 +56,11 @@ export default function MiddleContainer(props) {
         getAllTweets();
     }, [update])
 
-
     const focusTweet = () => {
         props.focus(true);
     }
+
+
 
     async function getUserTweets(name) {
         const userRef = await doc(db, 'users', `${name}`);
@@ -128,6 +128,11 @@ export default function MiddleContainer(props) {
         setPreviouslyClickedTweetTimestamp(status6);
     }
 
+    const callbackContentAndTimestamp = (status1, status2) => {
+        setPreviouslyClickedTweetContent(status1);
+        setPreviouslyClickedTweetTimestamp(status2);
+    } 
+
     const callbackUpdate = () => {
         setUpdate(update + 1);
     }
@@ -172,8 +177,8 @@ export default function MiddleContainer(props) {
                                                         if (tweet.name !== props.user) {
                                                             e.stopPropagation();
                                                             setPreviouslyClickedUser(tweet.name);
-                                                            setPreviouslyClickedTweetContent(tweet.text)
-                                                            setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString())
+                                                            // setPreviouslyClickedTweetContent(tweet.text)
+                                                            // setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString())
                                                             props.focus(false);
                                                             props.focusOtherUserProfile(true);
                                                             getUserTweets(tweet.name);
@@ -252,6 +257,8 @@ export default function MiddleContainer(props) {
                                     props.changeLocation('explore');
                                 } else {
                                     setFocusReply(false);
+                                    setLoadChats(true);
+                                    setLoadReplies(false);
                                 }
                             }}><FaArrowLeft /></span>
                             <div className='profile-middle-name'>
@@ -316,8 +323,8 @@ export default function MiddleContainer(props) {
                                                         setPreviouslyClickedUser(props.user);
                                                         setPreviouslyClickedTweetContent(tweet.text);
                                                         setPreviouslyClickedTweetTimestamp(tweet.timestamp.toDate().toDateString());
-                                                        console.log('clicked')
-
+                                                        setPreviouslyClickedLikes(tweet.likes);
+                                                        console.log('clicked');
                                                     }}>
 
                                                         <div className="explore-tweet-left">
@@ -371,7 +378,8 @@ export default function MiddleContainer(props) {
                     focusTweet={focusTweet} changeLocation={props.changeLocation} focusOtherUserProfile={props.focusOtherUserProfile}
                     focus={props.focus} user={props.user} previouslyClickedTweetContent={previouslyClickedTweetContent}
                     previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} globalTweetArray={globalTweetArray}
-                    otherUserProfile={props.otherUserProfile} update={callbackUpdate}  previouslyClickedLikes={previouslyClickedLikes}/>
+                    otherUserProfile={props.otherUserProfile} update={callbackUpdate}  previouslyClickedLikes={previouslyClickedLikes}  
+                    sendInfo={callbackContentAndTimestamp}/>
             ) : (
                 <div></div>
             )}

@@ -14,6 +14,7 @@ export default function FocusedTweet(props) {
     const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
+    const [previouslyClickedCommentLikes, setPreviouslyClickedCommentLikes] = useState(0);
 
     useEffect(() => {
         getTweetComments()
@@ -114,7 +115,7 @@ export default function FocusedTweet(props) {
                 <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
                     previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={props.previouslyClickedUser}
                     previouslyClickedTweetContent={props.previouslyClickedTweetContent} previouslyClickedTweetTimestamp={props.previouslyClickedTweetTimestamp}
-                    previouslyClickedLikes={props.previouslyClickedLikes} />
+                    previouslyClickedCommentLikes={previouslyClickedCommentLikes} previouslyClickedLikes={props.previouslyClickedLikes}/>
             ) : (
                 <div className='middle-focused-container'>
                     <div>
@@ -188,7 +189,8 @@ export default function FocusedTweet(props) {
                                         setFocusReply(true);
                                         setPreviouslyClickedComment(comment.text);
                                         setPreviouslyClickedCommentUser(comment.from);
-                                        setPreviouslyClickedCommentTimestamp(comment.timestamp)
+                                        setPreviouslyClickedCommentTimestamp(comment.timestamp);
+                                        setPreviouslyClickedCommentLikes(comment.likes);
                                     }}>
                                     {tweetComments.indexOf(comment) === 0 && tweetComments.length !== 1 ? (
                                         <div className='comment-line2'></div>
@@ -224,6 +226,9 @@ export default function FocusedTweet(props) {
                                                 <span>2</span>
                                             </div>
                                             <div className="tweet-likes tweet-reaction">
+                                                <>
+                                                {comment.likeby}
+                                                </>
                                                 <span onClick={(e) => {
                                                     e.stopPropagation();
                                                     incrementCommentLikes(comment.text, comment.from)
