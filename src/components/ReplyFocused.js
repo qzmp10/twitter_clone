@@ -7,6 +7,10 @@ import { db } from "../firebase.config";
 
 //YOU WERE, YOU NEED TO SHOW A REPLY AS FOCUSED WITH REPLY COMMENTS ALSO DISPLAYED
 export default function ReplyFocused(props) {
+
+    useEffect(() => {
+        console.log(props.previouslyClickedCommentLikes, props.previouslyClickedLikes)
+    }, [])
     
     return (
         <>

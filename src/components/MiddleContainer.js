@@ -23,6 +23,7 @@ export default function MiddleContainer(props) {
     const [previouslyClickedComment, setPreviouslyClickedComment] = useState('');
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
+    const [previouslyClickedCommentLikes, setPreviouslyClickedCommentLikes] = useState(0);
     const [focusReply, setFocusReply] = useState(false);
     const [update, setUpdate] = useState(0);
 
@@ -128,9 +129,10 @@ export default function MiddleContainer(props) {
         setPreviouslyClickedTweetTimestamp(status6);
     }
 
-    const callbackContentAndTimestamp = (status1, status2) => {
+    const callbackContentAndTimestamp = (status1, status2, status3) => {
         setPreviouslyClickedTweetContent(status1);
         setPreviouslyClickedTweetTimestamp(status2);
+        setPreviouslyClickedLikes(status3);
     } 
 
     const callbackUpdate = () => {
@@ -270,7 +272,7 @@ export default function MiddleContainer(props) {
                             <ReplyFocused previouslyClickedTweetContent={previouslyClickedTweetContent} previouslyClickedUser={previouslyClickedUser}
                                 previouslyClickedTweetTimestamp={previouslyClickedTweetTimestamp} previouslyClickedComment={previouslyClickedComment}
                                 previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
-                                previouslyClickedLikes={previouslyClickedLikes} />
+                                previouslyClickedLikes={previouslyClickedLikes} previouslyClickedCommentLikes={previouslyClickedCommentLikes}/>
                         ) : (
                             <>
                                 <div className="profile-banner-and-bio">

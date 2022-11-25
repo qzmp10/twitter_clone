@@ -40,13 +40,12 @@ export default function ProfileReply(props) {
     return (
         <>
             {replyArray.map(reply => {
-                console.log(reply.comment)
                 return (
                     <div key={Math.random() * 47474} className="profileReply"
                         onClick={() => {
                             props.replyFocused(true);
                             props.commentInfo(reply.comment.text, reply.comment.from, reply.comment.timestamp,
-                                reply.tweet.text, reply.tweet.name, reply.tweet.timestamp.toDate().toDateString());
+                                reply.tweet.text, reply.tweet.name, reply.tweet.timestamp.toDate().toDateString(),  reply.comment.likes, reply.tweet.likes);
                         }}>
                         <div className="reply-line"></div>
                         <div key={Math.random() * 73292} className="explore-tweet-replies">
@@ -74,7 +73,7 @@ export default function ProfileReply(props) {
                                     </div>
                                     <div className="tweet-likes tweet-reaction">
                                         <span><AiOutlineHeart /></span>
-                                        <span>3</span>
+                                        <span>{reply.tweet.likes}</span>
                                     </div>
                                     <div className="tweet-share tweet-reaction">
                                         <span><AiOutlineShareAlt /></span>
@@ -107,7 +106,7 @@ export default function ProfileReply(props) {
                                     </div>
                                     <div className="tweet-likes tweet-reaction">
                                         <span><AiOutlineHeart /></span>
-                                        <span>3</span>
+                                        <span>{reply.comment.likes}</span>
                                     </div>
                                     <div className="tweet-share tweet-reaction">
                                         <span><AiOutlineShareAlt /></span>

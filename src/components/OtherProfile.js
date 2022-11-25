@@ -18,7 +18,9 @@ export default function OtherProfile(props) {
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
     const [ogTweetContent, setOgTweetContent] = useState('')
     const [ogTweetUser, setOgTweetUser] = useState('')
-    const [ogTweetTimestamp, setOgTweetTimestamp] = useState('')
+    const [ogTweetTimestamp, setOgTweetTimestamp] = useState('');
+    const [previouslyClickedCommentLikes, setPreviouslyClickedCommentLikes] = useState(0);
+    const [previouslyClickedLikes, setPreviouslyClickedLikes] = useState(0);
     const [loadChats, setLoadChats] = useState(true);
     const [loadReplies, setLoadReplies] = useState(false);
     const [update, setUpdate] = useState(0);
@@ -38,13 +40,15 @@ export default function OtherProfile(props) {
     const callbackFocusReply = (status) => {
         setFocusReply(status);
     }
-    const callbackPreviousCommentInfo = (status1, status2, status3, status4, status5, status6) => {
+    const callbackPreviousCommentInfo = (status1, status2, status3, status4, status5, status6, status7, status8) => {
         setPreviouslyClickedComment(status1);
         setPreviouslyClickedCommentUser(status2);
         setPreviouslyClickedCommentTimestamp(status3);
         setOgTweetContent(status4);
         setOgTweetUser(status5);
         setOgTweetTimestamp(status6)
+        setPreviouslyClickedCommentLikes(status7);
+        setPreviouslyClickedLikes(status8);
     }
 
     const callbackUpdate = () => {
@@ -77,7 +81,8 @@ export default function OtherProfile(props) {
                 {focusReply ? (
                     <ReplyFocused previouslyClickedComment={previouslyClickedComment} previouslyClickedCommentTimestamp={previouslyClickedCommentTimestamp}
                         previouslyClickedCommentUser={previouslyClickedCommentUser} previouslyClickedUser={ogTweetUser} previouslyClickedTweetContent={ogTweetContent}
-                        previouslyClickedTweetTimestamp={ogTweetTimestamp}
+                        previouslyClickedTweetTimestamp={ogTweetTimestamp} previouslyClickedCommentLikes={previouslyClickedCommentLikes}
+                        previouslyClickedLikes={previouslyClickedLikes}
                     />
                 ) : (
                     <>
@@ -127,7 +132,7 @@ export default function OtherProfile(props) {
                                     {props.otherUserTweets.map(tweet => {
                                         return (
                                             <div key={Math.random() * 73292} className="explore-tweet" onClick={() =>{
-                                                props.sendInfo(tweet.text, tweet.timestamp.toDate().toString());
+                                                props.sendInfo(tweet.text, tweet.timestamp.toDate().toString(), tweet.likes);
                                                 props.focus(true);
                                             }}>
 
@@ -168,7 +173,7 @@ export default function OtherProfile(props) {
                             ) : loadReplies ? (
                                 <ProfileReply globalTweetArray={props.globalTweetArray} previouslyClickedUser={props.previouslyClickedUser}
                                     otherUserProfile={props.otherUserProfile} replyFocused={callbackFocusReply} commentInfo={callbackPreviousCommentInfo} 
-                                    update={callbackUpdate}/>
+                                    update={callbackUpdate} />
                             ) : (
                                 <div></div>
                             )}
