@@ -27,7 +27,7 @@ export default function Tweet(props) {
 
         await updateDoc(userData, {
             tweets: arrayUnion({text: tweetContent, 
-            timestamp: Timestamp.now(), comments: [], likes: 0}),
+            timestamp: Timestamp.now(), comments: [], likes: 0, likedby: []}),
         })
     }
 

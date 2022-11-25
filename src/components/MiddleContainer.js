@@ -5,7 +5,7 @@ import { AiOutlineHeart, AiOutlineRetweet, AiOutlineShareAlt } from "react-icons
 import { FaArrowLeft } from "react-icons/fa"
 import FocusedTweet from "./FocusedTweet"
 import { useEffect, useState, useRef } from "react"
-import { doc, getDoc, getDocs, query, collection } from "firebase/firestore"
+import { doc, getDoc, getDocs, query, collection, updateDoc } from "firebase/firestore"
 import { db } from "../firebase.config"
 import OtherProfile from "./OtherProfile"
 import ProfileReply from "./ProfileReply"
@@ -23,6 +23,7 @@ export default function MiddleContainer(props) {
     const [previouslyClickedCommentUser, setPreviouslyClickedCommentUser] = useState('');
     const [previouslyClickedCommentTimestamp, setPreviouslyClickedCommentTimestamp] = useState('');
     const [focusReply, setFocusReply] = useState(false);
+    const [update, setUpdate] = useState(0);
 
 
     const [loadChats, setLoadChats] = useState(true);
@@ -79,14 +80,24 @@ export default function MiddleContainer(props) {
         setGlobalTweetArray(array);
     }
 
-    async function getTweetLikes(name, text) {
-        const userRef = await doc(db, 'users', `${name}`);
-        const userSnap = await getDoc(userRef);
-        const userTweets = userSnap.data()['tweets'];
-        userTweets.forEach(tweet => {
-            if(tweet.text === text) {
-                console.log(tweet.likes)
+    async function incrementLikes(name, text) {
+        const ref = doc(db, 'users', `${name}`);
+
+        const snap = await getDoc(ref);
+
+        console.log(snap.data()['tweets'])
+
+        let newTweets = snap.data()['tweets'];
+
+        newTweets.forEach(tweet => {
+            if(text === tweet.text) {
+                tweet.likes += 1;
+                console.log(tweet);
             }
+        })
+        
+        await updateDoc(ref, {
+            tweets: newTweets,
         })
     }
 
@@ -120,7 +131,6 @@ export default function MiddleContainer(props) {
                             {globalTweetArray.map(tweet => {
                                 return (
                                     <div key={Math.random() * 78787} className="explore-tweet" onClick={() => {
-                                        getTweetLikes(tweet.name, tweet.text);
                                         props.focus(true);
                                         setPreviouslyClickedUser(tweet.name);
                                         setPreviouslyClickedTweetContent(tweet.text);
@@ -169,8 +179,11 @@ export default function MiddleContainer(props) {
                                                     <span>2</span>
                                                 </div>
                                                 <div className="tweet-likes tweet-reaction">
-                                                    <span><AiOutlineHeart /></span>
-                                                    <span>3</span>
+                                                    <span onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        incrementLikes(tweet.name, tweet.text);
+                                                        }}><AiOutlineHeart /></span>
+                                                    <span>{tweet.likes}</span>
                                                 </div>
                                                 <div className="tweet-share tweet-reaction">
                                                     <span><AiOutlineShareAlt /></span>

@@ -42,7 +42,8 @@ export default function FocusedTweet(props) {
                     text: commentValue,
                     timestamp: Timestamp.now(),
                     from: props.user,
-                    likes: 0
+                    likes: 0,
+                    likedby: []
                 })
             }
         })
